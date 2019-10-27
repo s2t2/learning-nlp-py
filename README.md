@@ -36,4 +36,6 @@ pip install pytest # (first time only)
 
 ```sh
 pytest --disable-pytest-warnings
+# pytest test/parser_test.py --disable-pytest-warnings
+# pytest test/parser_test.py -k 'test_spacy_lemmatizer' --disable-pytest-warnings
 ```
