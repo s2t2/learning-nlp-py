@@ -27,3 +27,8 @@
   + [Figure Eight Datasets](https://www.figure-eight.com/data-for-everyone/)
   + [NLTK Datasets](https://github.com/nltk/nltk/wiki/Sentiment-Analysis#datasets)
   + [UIC Datasets](https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html#datasets)
+
+## Pandas
+
+  + [`Series.str.count()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.str.count.html)
+  + [`Series.value_counts()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html)

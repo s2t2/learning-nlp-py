@@ -21,3 +21,13 @@ Download the "amazon_reviews.csv" file and move it into the "data" directory of 
 ```sh
 python -m app.parser
 ```
+
+## Testing
+
+```sh
+pip install pytest # (first time only)
+```
+
+```sh
+pytest
+```
