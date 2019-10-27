@@ -14,9 +14,11 @@ def tokenize(doc):
     """
     Params: doc (str)
     """
-    doc = doc.lower() # normalize case. if you want to do named entity recognition, consider doing that before this
+    doc = doc.lower() # normalize case
     doc = re.sub(ALPHANUMERIC_PATTERN, "", doc) # keep only alphanumeric characters
     tokens = doc.split()
+    # todo: consider removing stopwords!
+    # todo: consider stemming / lemmatizing!
     return tokens
 
 if __name__ == "__main__":
@@ -50,7 +52,7 @@ if __name__ == "__main__":
     df["nlp.tokens"] = df["reviews.text"].apply(lambda txt: tokenize(txt))
 
     print("TOKENS...")
-    df["nlp.tokens"].head()
+    print(df["nlp.tokens"].head())
 
     breakpoint()
 

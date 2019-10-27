@@ -9,6 +9,7 @@
 
 ## Write-ups
 
+  + [NLP, by Lambda School](https://github.com/LambdaSchool/DS-Material/tree/master/unit4-machine-learning/sprint1-natural-language-processing)
   + [Sentiment Analysis, by Tanner](https://github.com/TannerGilbert/Tutorials/blob/master/Keras-Tutorials/6.%20Sentiment%20Analysis/Sentiment%20Analysis.ipynb)
   + [Sentiment Analysis, by Giuseppe](https://gist.github.com/giuseppebonaccorso/061fca8d0dfc6873619efd8f364bfe89)
   + [Sentiment Analysis, by Tensorflow](https://github.com/tensorflow/models/tree/master/research/sentiment_analysis)
@@ -32,3 +33,7 @@
 
   + [`Series.str.count()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.str.count.html)
   + [`Series.value_counts()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html)
+
+## NLTK
+
+  + [Frequency Distributions](https://www.nltk.org/api/nltk.html?highlight=freqdist)
