@@ -4,7 +4,8 @@ from nltk.tokenize import word_tokenize # Word Tokenizer
 
 import spacy
 from spacy.tokenizer import Tokenizer
-#from nltk.stem import PorterStemmer
+
+from nltk.stem import PorterStemmer
 
 from app.parser import tokenize
 
@@ -47,18 +48,31 @@ def test_nltk_tokenizers():
         'Text', 'me', '(', '123', ')', '456-7890.', 'k', 'cool', '!'
     ]
 
-def test_spacy_tokenizer():
-    nlp = spacy.load("en_core_web_md") # TODO: consider making this a text fixture
-    tokenizer = Tokenizer(nlp.vocab)
+#def test_spacy_tokenizer():
+#    nlp = spacy.load("en_core_web_md") # TODO: consider making this a text fixture
+#    tokenizer = Tokenizer(nlp.vocab)
+#
+#    tokens = [token.text for token in tokenizer(MY_PREAMBLE)]
+#    assert tokens == ['Friends,', 'Romans,', 'countrymen,', 'lend', 'me', 'your', 'ears;', '911']
+#
+#    tokens = [token.text for token in tokenizer(MY_MESSAGE)]
+#    assert tokens == [
+#        ' ', 'Oh', 'HeY', 'there', '-', 'so', "whatr'u", ' ', 'up', 'to', 'later????', '\n   ',
+#        'Statue', 'of', 'Liberty', 'trip', 'later.', '\n ',
+#        'Text', 'me', '(123)', '456-7890.', 'k', 'cool!'
+#    ]
 
-    tokens = [token.text for token in tokenizer(MY_PREAMBLE)]
-    assert tokens == ['Friends,', 'Romans,', 'countrymen,', 'lend', 'me', 'your', 'ears;', '911']
+def test_nltk_porter_stemmer():
+    ps = PorterStemmer()
 
-    tokens = [token.text for token in tokenizer(MY_MESSAGE)]
-    assert tokens == [
-        ' ', 'Oh', 'HeY', 'there', '-', 'so', "whatr'u", ' ', 'up', 'to', 'later????', '\n   ',
-        'Statue', 'of', 'Liberty', 'trip', 'later.', '\n ',
-        'Text', 'me', '(123)', '456-7890.', 'k', 'cool!'
+    words = [
+        "is", "are", "be", "was",
+        "ran", "running", "from", "wolves"
+    ]
+
+    assert [ps.stem(word) for word in words] == [
+        "is", "are", "be", "wa",
+        "ran", "run", "from", "wolv"
     ]
 
 
