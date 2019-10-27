@@ -16,6 +16,12 @@ pip install -r requirements.txt
 
 Download the "amazon_reviews.csv" file and move it into the "data" directory of this repository.
 
+Download the spacy language model:
+
+```sh
+python -m spacy download en_core_web_md
+```
+
 ## Usage
 
 ```sh
@@ -29,5 +35,5 @@ pip install pytest # (first time only)
 ```
 
 ```sh
-pytest
+pytest --disable-pytest-warnings
 ```

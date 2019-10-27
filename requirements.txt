@@ -1,5 +1,12 @@
 
 pandas
-matplotlib
+
+# NLP:
 nltk
 sklearn
+spacy
+
+# Dataviz:
+matplotlib
+squarify
+#seaborn

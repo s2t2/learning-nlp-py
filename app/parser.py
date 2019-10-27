@@ -56,6 +56,23 @@ if __name__ == "__main__":
 
     breakpoint()
 
+
+    #import squarify
+    #wc_top20 = wc[wc['rank'] <= 20]
+    #squarify.plot(sizes=wc_top20['pct_total'], label=wc_top20['word'], alpha=.8 )
+    #plt.axis('off')
+    #plt.show()
+
+
+    #import seaborn as sns
+
+
+
+
+
+
+
+
     #
     # PROCESSING > VECTORIZING
     #
