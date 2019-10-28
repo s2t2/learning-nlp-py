@@ -1,5 +1,7 @@
 
+# Data processing:
 pandas
+numpy
 
 # NLP:
 nltk
@@ -9,4 +11,4 @@ spacy
 # Dataviz:
 matplotlib
 squarify
-#seaborn
+seaborn

@@ -37,3 +37,7 @@
 ## NLTK
 
   + [Frequency Distributions](https://www.nltk.org/api/nltk.html?highlight=freqdist)
+
+## Pytest
+
+  + [Pytest Fixtures](https://docs.pytest.org/en/latest/fixture.html)

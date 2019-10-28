@@ -1,9 +1,13 @@
 import os
 #from pprint import pprint
 
-import re
+import numpy as np
 import pandas as pd
+import re
+
 import matplotlib.pyplot as plt
+import seaborn as sns
+import squarify
 
 DATA_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "data")
 REVIEWS_CSV_FILEPATH = os.path.join(DATA_DIRPATH, "amazon_reviews.csv")
@@ -54,17 +58,24 @@ if __name__ == "__main__":
     print("TOKENS...")
     print(df["nlp.tokens"].head())
 
-    breakpoint()
+    tokens = np.hstack(df["nlp.tokens"].values) # h/t: https://stackoverflow.com/a/11367444/670433
 
+    #sns.countplot(tokens)
+    #plt.show()
+    #> hmmm this is hanging pretty bad
 
-    #import squarify
-    #wc_top20 = wc[wc['rank'] <= 20]
-    #squarify.plot(sizes=wc_top20['pct_total'], label=wc_top20['word'], alpha=.8 )
-    #plt.axis('off')
+    #sns.countplot(["all", "the", "kings", "men", "ate", "all", "the", "kings", "hens"])
     #plt.show()
 
 
-    #import seaborn as sns
+
+    #summary_df = pd.DataFrame()
+    #most_frequent_tokens = summary_df[summary_df["rank"] <= 20]
+#
+    #squarify.plot(sizes=summary_df["pct_total"], label=summary_df["word"], alpha=0.8 )
+    #plt.axis("off")
+    #plt.show()
+
 
 
 
