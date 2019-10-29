@@ -1,7 +1,10 @@
 
 from nltk.corpus import stopwords # FYI: need to run nltk.download() or nltk.download('stopwords') on your machine for this to work
 
-def test_nltk_stopwords(nlp):
+def test_custom_removal():
+    assert "the blue pajamas".replace("the", "").strip() == "blue pajamas"
+
+def test_nltk_stopwords():
     stop_words = stopwords.words("english")
 
     assert stop_words == [
@@ -71,3 +74,9 @@ def test_spacy_stopwords(nlp):
 
     custom_stop_words = nlp.Defaults.stop_words.union(["@POTUS", "pajamas"])
     assert "pajamas" in custom_stop_words
+
+def test_spacy_document_stopwords(nlp):
+    doc = nlp("the blue pajamas") #> <class 'spacy.tokens.doc.Doc'>
+
+    assert [str(token) for token in doc] == ['the', 'blue', 'pajamas']
+    assert [token.is_stop for token in doc] == [True, False, False]
