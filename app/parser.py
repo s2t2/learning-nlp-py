@@ -31,33 +31,38 @@ def summarize(token_sets):
     Param: token_sets a list of token lists
     """
 
-    word_counter = Counter()
-    appearance_counter = Counter()
+    token_counter = Counter()
+    doc_counter = Counter()
 
     for tokens in token_sets:
-        word_counter.update(tokens)
-        appearance_counter.update(set(tokens)) # removes duplicates!
+        token_counter.update(tokens)
+        doc_counter.update(set(tokens)) # removes duplicate tokens so they only get counted once per doc!
 
-    word_counts = zip(word_counter.keys(), word_counter.values())
-    df = pd.DataFrame(word_counts, columns = ["token", "count"])
+    token_counts = zip(token_counter.keys(), token_counter.values())
+    doc_counts = zip(doc_counter.keys(), doc_counter.values())
 
-    df["rank"] = df["count"].rank(method="first", ascending=False)
+    # assemble dataframe of token stats
 
-    total_tokens = df["count"].sum()
-    df["pct_total"] = df["count"] / total_tokens # df["count"].apply(lambda x: x / total_tokens)
+    df = pd.DataFrame(token_counts, columns=["token", "token_count"])
 
-    df = df.sort_values(by="rank")
-    df["cul_pct_total"] = df["pct_total"].cumsum()
+    df["token_rank"] = df["token_count"].rank(method="first", ascending=False)
 
-    temp2 = zip(appearance_counter.keys(), appearance_counter.values())
-    df2 = pd.DataFrame(temp2, columns=["token", "appears_in"])
+    total_tokens = df["token_count"].sum()
+    df["token_pct"] = df["token_count"] / total_tokens # df["token_count"].apply(lambda x: x / total_tokens)
 
-    df = df2.merge(df, on="token")
+    df = df.sort_values(by="token_rank")
+    df["token_pct_rt"] = df["token_pct"].cumsum()
+
+    # merge document stats
+
+    doc_df = pd.DataFrame(doc_counts, columns=["token", "doc_count"])
+
+    df = doc_df.merge(df, on="token")
 
     total_docs = len(token_sets)
-    df["appears_in_pct"] = df["appears_in"] / total_docs # df["appears_in"].apply(lambda x: x / total_docs)
+    df["doc_pct"] = df["doc_count"] / total_docs # df["doc_count"].apply(lambda x: x / total_docs)
 
-    return df.sort_values(by="rank")
+    return df.sort_values(by="token_rank")
 
 if __name__ == "__main__":
 
@@ -101,10 +106,15 @@ if __name__ == "__main__":
 
     token_sets = df["nlp.tokens"].values.tolist()
     print(token_sets[0])
+
     summary_table = summarize(token_sets)
+
+    #sns.distplot(summary_table["doc_pct"])
+    #plt.show()
+
     most_frequent_tokens_table = summary_table[summary_table["rank"] <= 20]
 
-    squarify.plot(sizes=most_frequent_tokens_table["pct_total"], label=most_frequent_tokens_table["token"], alpha=0.8 )
+    squarify.plot(sizes=most_frequent_tokens_table["token_pct"], label=most_frequent_tokens_table["token"], alpha=0.8 )
     plt.axis("off")
     plt.show()
 
@@ -113,9 +123,3 @@ if __name__ == "__main__":
     #
 
     # TODO: add column called "nlp.vectors" and add vectorized tokens there
-
-    #
-    # PROCESSING > SUBSETS
-    #
-
-    # TODO: add column called "nlp.subset" and split into subsets "test" and "train"
