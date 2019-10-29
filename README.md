@@ -22,6 +22,15 @@ Download the spacy language model:
 python -m spacy download en_core_web_md
 ```
 
+Download NLTK data, like stopwords:
+
+```sh
+python
+
+> import nltk
+> nltk.download()
+> nltk.download("stopwords")
+```
 ## Usage
 
 ```sh
