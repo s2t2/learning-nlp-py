@@ -5,11 +5,17 @@ MY_PREAMBLE = "Friends, Romans, countrymen, lend me your ears; 911"
 
 MY_MESSAGE = " Oh HeY there - so whatr'u  up to later???? \n   Statue of Liberty trip later. \n Text me (123) 456-7890. k cool! "
 
-TOKEN_SETS = [
-    ["all", "the", "kings", "men"],
-    ["ate", "all", "the", "kings", "hens"],
-    ["until", "they", "all", "got", "tired", "and", "went", "to", "sleep", "zzz"]
+DOCUMENTS = [
+    "all the kings men",
+    "ate all the kings hens",
+    "until they all got tired and went to sleep zzz"
 ]
+TOKEN_SETS = [doc.split() for doc in DOCUMENTS]
+#> [
+#    ["all", "the", "kings", "men"],
+#    ["ate", "all", "the", "kings", "hens"],
+#    ["until", "they", "all", "got", "tired", "and", "went", "to", "sleep", "zzz"]
+#]
 
 # prevents unnecessary or duplicative language model loading
 # fixture only loaded when a specific test needs it
