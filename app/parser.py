@@ -182,17 +182,17 @@ if __name__ == "__main__":
     # TOKENIZING
     #
 
-    #df["nlp.tokens"] = df["reviews.text"].apply(lambda txt: tokenize(txt))
-    #print(df["nlp.tokens"].head())
-    #plot_top_tokens(df["nlp.tokens"].values.tolist())
+    df["nlp.tokens"] = df["reviews.text"].apply(lambda txt: tokenize(txt))
+    print(df["nlp.tokens"].head())
+    plot_top_tokens(df["nlp.tokens"].values.tolist())
 
-    #df["nlp.tokens.v2"] = df["reviews.text"].apply(lambda txt: tokenize_v2(txt))
-    #print(df["nlp.tokens.v2"].head())
-    #plot_top_tokens(df["nlp.tokens.v2"].values.tolist())
+    df["nlp.tokens.v2"] = df["reviews.text"].apply(lambda txt: tokenize_v2(txt))
+    print(df["nlp.tokens.v2"].head())
+    plot_top_tokens(df["nlp.tokens.v2"].values.tolist())
 
-    df["nlp.tokens.v22"] = df["reviews.text"].apply(lambda txt: tokenize_v22(txt))
-    print(df["nlp.tokens.v22"].head())
-    plot_top_tokens(df["nlp.tokens.v22"].values.tolist())
+    #df["nlp.tokens.v22"] = df["reviews.text"].apply(lambda txt: tokenize_v22(txt))
+    #print(df["nlp.tokens.v22"].head())
+    #plot_top_tokens(df["nlp.tokens.v22"].values.tolist())
 
     #df["nlp.tokens.v3"] = df["reviews.text"].apply(lambda txt: tokenize_v3(txt, nlp))
     #print(df["nlp.tokens.v3"].head())
