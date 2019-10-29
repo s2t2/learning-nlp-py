@@ -1,6 +1,8 @@
 
 # Learning NLP
 
+![](/img/tokenization-v5.png)
+
 ## Setup
 
 Fork and clone this repo onto your local machine, then navigate there from the command-line.
@@ -11,7 +13,7 @@ conda activate learning-nlp-env
 ```
 
 ```sh
-pip install -r requirements.txt
+pip install -r requirements.txt # (first time only)
 ```
 
 Download the "amazon_reviews.csv" file and move it into the "data" directory of this repository.

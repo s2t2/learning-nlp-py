@@ -6,7 +6,9 @@ import numpy as np
 import pandas as pd
 import re
 from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
 import spacy
+from spacy.tokenizer import Tokenizer
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -20,6 +22,7 @@ ALPHANUMERIC_PATTERN = r'[^a-zA-Z ^0-9]' # same as "[^a-zA-Z ^0-9]"
 def tokenize(doc):
     """
     Params: doc (str) the document to tokenize
+    Returns: a list of tokens
     """
     doc = doc.lower() # normalize case
     doc = re.sub(ALPHANUMERIC_PATTERN, "", doc) # keep only alphanumeric characters
@@ -31,6 +34,7 @@ def tokenize(doc):
 def tokenize_v2(doc):
     """
     Params: doc (str) the document to tokenize
+    Returns: a list of tokens
     """
     doc = doc.lower() # normalize case
     doc = re.sub(ALPHANUMERIC_PATTERN, "", doc) # keep only alphanumeric characters
@@ -40,11 +44,25 @@ def tokenize_v2(doc):
     # todo: consider stemming / lemmatizing!
     return tokens
 
+def tokenize_v22(doc):
+    """
+    Params: doc (str) the document to tokenize
+    Returns: a list of tokens
+    """
+    doc = doc.lower() # normalize case
+    doc = re.sub(ALPHANUMERIC_PATTERN, "", doc) # keep only alphanumeric characters
+    tokens = doc.split()
+    stop_words = stopwords.words("english")
+    ps = PorterStemmer()
+    tokens = [ps.stem(token) for token in tokens if not token in stop_words]
+    return tokens
+
 def tokenize_v3(my_doc, my_nlp):
     """
     Params:
         my_doc (str) the document to tokenize
         my_nlp (spacy.lang.en.English) one of spacy's natural language models
+    Returns: a list of tokens
     """
     doc = my_nlp(my_doc) #> <class 'spacy.tokens.doc.Doc'>
     tokens = [token.text.lower() for token in doc if
@@ -60,14 +78,31 @@ def tokenize_v4(my_doc, my_nlp):
     Params:
         my_doc (str) the document to tokenize
         my_nlp (spacy.lang.en.English) one of spacy's natural language models
+    Returns: a list of tokens
     """
     doc = my_nlp(my_doc) #> <class 'spacy.tokens.doc.Doc'>
-    tokens = [token.lemma_.lower() for token in doc if
-        token.is_stop == False
-        and token.is_punct == False
-        and token.is_space == False
-    ]
+    tokens = [token.lemma_.lower() for token in doc if token.is_stop == False and token.is_punct == False and token.is_space == False]
     return tokens
+
+def tokenize_v5(my_docs, my_nlp, batch_size=50):
+    """
+    Uses a tokenizer pipeline for performance gains (JK still very slow).
+    Params:
+        my_docs (list of str, or dataframe column of str) the documents to tokenize
+        my_nlp (spacy.lang.en.English) one of spacy's natural language models
+    Returns: a token set (list of token lists)
+    """
+    tokenizer = Tokenizer(my_nlp.vocab)
+    token_sets = []
+    for doc in tokenizer.pipe(my_docs, batch_size=batch_size):
+        # tokens = [token.lemma_.lower() for token in doc if token.is_stop == False and token.is_punct == False and token.is_space == False]
+        # ... for some reason there are special characters, so maybe...
+        clean_text = re.sub(ALPHANUMERIC_PATTERN, "", doc.text)
+        clean_doc = my_nlp(clean_text)
+        tokens = [token.lemma_.lower() for token in clean_doc if token.is_stop == False and token.is_punct == False and token.is_space == False]
+        # ... hmm stopwords are still making their way through if the lemma is a stopword
+        token_sets.append(tokens)
+    return token_sets
 
 def summarize(token_sets):
     """
@@ -125,6 +160,8 @@ def plot_tokens(tokens=["all", "the", "kings", "men", "ate", "all", "the", "king
 
 if __name__ == "__main__":
 
+    #nlp = spacy.load("en_core_web_md")
+
     #
     # LOADING
     #
@@ -145,23 +182,29 @@ if __name__ == "__main__":
     # TOKENIZING
     #
 
-    df["nlp.tokens"] = df["reviews.text"].apply(lambda txt: tokenize(txt))
-    print(df["nlp.tokens"].head())
-    plot_top_tokens(df["nlp.tokens"].values.tolist())
+    #df["nlp.tokens"] = df["reviews.text"].apply(lambda txt: tokenize(txt))
+    #print(df["nlp.tokens"].head())
+    #plot_top_tokens(df["nlp.tokens"].values.tolist())
 
     #df["nlp.tokens.v2"] = df["reviews.text"].apply(lambda txt: tokenize_v2(txt))
     #print(df["nlp.tokens.v2"].head())
     #plot_top_tokens(df["nlp.tokens.v2"].values.tolist())
 
-    #nlp = spacy.load("en_core_web_md")
-    #
+    df["nlp.tokens.v22"] = df["reviews.text"].apply(lambda txt: tokenize_v22(txt))
+    print(df["nlp.tokens.v22"].head())
+    plot_top_tokens(df["nlp.tokens.v22"].values.tolist())
+
     #df["nlp.tokens.v3"] = df["reviews.text"].apply(lambda txt: tokenize_v3(txt, nlp))
     #print(df["nlp.tokens.v3"].head())
     #plot_top_tokens(df["nlp.tokens.v3"].values.tolist())
-    #
+
     #df["nlp.tokens.v4"] = df["reviews.text"].apply(lambda txt: tokenize_v4(txt, nlp))
     #print(df["nlp.tokens.v4"].head())
     #plot_top_tokens(df["nlp.tokens.v4"].values.tolist())
+
+    #df["nlp.tokens.v5"] = tokenize_v5(df["reviews.text"].values.tolist(), nlp)
+    #print(df["nlp.tokens.v5"].head())
+    #plot_top_tokens(df["nlp.tokens.v5"].values.tolist())
 
     #
     # VECTORIZING
