@@ -25,4 +25,4 @@ TOKEN_SETS = [doc.split() for doc in DOCUMENTS]
 def nlp():
     import spacy
     print("LOADING THE LANGUAGE MODEL...")
-    return spacy.load("en_core_web_md")
+    return spacy.load("en_core_web_md") #> <class 'spacy.lang.en.English'>

@@ -33,6 +33,7 @@
 
   + [`Series.str.count()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.str.count.html)
   + [`Series.value_counts()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html)
+  + [Reorder dataframe columns](https://stackoverflow.com/a/39237712/670433)
 
 ## NLTK
 
