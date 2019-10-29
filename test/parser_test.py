@@ -1,9 +1,9 @@
+from pandas import DataFrame
 
-from conftest import MY_PREAMBLE, MY_MESSAGE
+from app.parser import tokenize, summarize
+from conftest import MY_PREAMBLE, MY_MESSAGE, TOKEN_SETS
 
-from app.parser import tokenize
-
-def test_custom_tokenizer():
+def test_tokenize():
     assert tokenize(MY_PREAMBLE) == [
         "friends", "romans", "countrymen",
         "lend", "me", "your", "ears", "911"
@@ -16,3 +16,9 @@ def test_custom_tokenizer():
     ]
 
     assert tokenize("Don't do Full-Time") == ["dont", "do", "fulltime"]
+
+def test_summarize():
+    df = summarize(TOKEN_SETS)
+
+    print(df.head())
+    assert isinstance(df, DataFrame)

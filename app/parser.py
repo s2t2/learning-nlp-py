@@ -1,5 +1,6 @@
 import os
 #from pprint import pprint
+from collections import Counter
 
 import numpy as np
 import pandas as pd
@@ -24,6 +25,39 @@ def tokenize(doc):
     # todo: consider removing stopwords!
     # todo: consider stemming / lemmatizing!
     return tokens
+
+def summarize(token_sets):
+    """
+    Param: token_sets a list of token lists
+    """
+
+    word_counter = Counter()
+    appearance_counter = Counter()
+
+    for tokens in token_sets:
+        word_counter.update(tokens)
+        appearance_counter.update(set(tokens)) # removes duplicates!
+
+    word_counts = zip(word_counter.keys(), word_counter.values())
+    df = pd.DataFrame(word_counts, columns = ["token", "count"])
+
+    df["rank"] = df["count"].rank(method="first", ascending=False)
+
+    total_tokens = df["count"].sum()
+    df["pct_total"] = df["count"] / total_tokens # df["count"].apply(lambda x: x / total_tokens)
+
+    df = df.sort_values(by="rank")
+    df["cul_pct_total"] = df["pct_total"].cumsum()
+
+    temp2 = zip(appearance_counter.keys(), appearance_counter.values())
+    df2 = pd.DataFrame(temp2, columns=["token", "appears_in"])
+
+    df = df2.merge(df, on="token")
+
+    total_docs = len(token_sets)
+    df["appears_in_pct"] = df["appears_in"] / total_docs # df["appears_in"].apply(lambda x: x / total_docs)
+
+    return df.sort_values(by="rank")
 
 if __name__ == "__main__":
 
@@ -58,31 +92,21 @@ if __name__ == "__main__":
     print("TOKENS...")
     print(df["nlp.tokens"].head())
 
-    tokens = np.hstack(df["nlp.tokens"].values) # h/t: https://stackoverflow.com/a/11367444/670433
-
+    #tokens = np.hstack(df["nlp.tokens"].values) # h/t: https://stackoverflow.com/a/11367444/670433
     #sns.countplot(tokens)
     #plt.show()
-    #> hmmm this is hanging pretty bad
-
+    #> hmmm this is hanging pretty bad for me, so how about an example instead...
     #sns.countplot(["all", "the", "kings", "men", "ate", "all", "the", "kings", "hens"])
     #plt.show()
 
+    token_sets = df["nlp.tokens"].values.tolist()
+    print(token_sets[0])
+    summary_table = summarize(token_sets)
+    most_frequent_tokens_table = summary_table[summary_table["rank"] <= 20]
 
-
-    #summary_df = pd.DataFrame()
-    #most_frequent_tokens = summary_df[summary_df["rank"] <= 20]
-#
-    #squarify.plot(sizes=summary_df["pct_total"], label=summary_df["word"], alpha=0.8 )
-    #plt.axis("off")
-    #plt.show()
-
-
-
-
-
-
-
-
+    squarify.plot(sizes=most_frequent_tokens_table["pct_total"], label=most_frequent_tokens_table["token"], alpha=0.8 )
+    plt.axis("off")
+    plt.show()
 
     #
     # PROCESSING > VECTORIZING
