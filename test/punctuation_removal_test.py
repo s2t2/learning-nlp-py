@@ -1,14 +1,22 @@
 
+import re
 import string
+
+from app.parser import ALPHANUMERIC_PATTERN
 
 from conftest import MY_PREAMBLE, MY_MESSAGE
 
-def test_punctuation_removal():
+def test_string_punctuation():
     assert string.punctuation == '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
     assert "!" in string.punctuation
 
     nonpunctuation_characters = [char for char in "Hello World!!!" if char not in string.punctuation]
     assert "".join(nonpunctuation_characters) == "Hello World"
+
+def test_regex():
+    assert re.sub(ALPHANUMERIC_PATTERN, '', "Hello World!!!") == "Hello World"
+    assert re.sub(ALPHANUMERIC_PATTERN, '', MY_PREAMBLE) == 'Friends Romans countrymen lend me your ears 911'
+    assert re.sub(ALPHANUMERIC_PATTERN, '', MY_MESSAGE) == ' Oh HeY there  so whatru  up to later    Statue of Liberty trip later  Text me 123 4567890 k cool '
 
 def test_translation_table():
     translation_table = str.maketrans("", "", string.punctuation)
