@@ -35,8 +35,16 @@ python
 ```
 ## Usage
 
+Run some example code:
+
 ```sh
 python -m app.parser
+```
+
+Start working from scratch in your own clean space:
+
+```sh
+python -m app.playground
 ```
 
 ## Testing

@@ -16,6 +16,7 @@
   + [Classifying Tweets with Keras and Tensorflow, by Violet](https://vgpena.github.io/classifying-tweets-with-keras-and-tensorflow/)
   + [Sentiment Analysis with RNN, by Susan](https://towardsdatascience.com/a-beginners-guide-on-sentiment-analysis-with-rnn-9e100627c02e) | [source](https://github.com/susanli2016/NLP-with-Python/blob/master/Sentiment%20Analysis%20with%20RNN.ipynb)
   + [Twitter Sentiment Analysis, by Prateek](https://www.analyticsvidhya.com/blog/2018/07/hands-on-sentiment-analysis-dataset-python/)
+  + [Sense2Vec](https://explosion.ai/blog/sense2vec-with-spacy)
 
 ## Datasets
 
@@ -38,6 +39,10 @@
 ## NLTK
 
   + [Frequency Distributions](https://www.nltk.org/api/nltk.html?highlight=freqdist)
+
+## Scikit-Learn
+
+  + [`CountVectorizer`](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html)
 
 ## Pytest
 
