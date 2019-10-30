@@ -84,7 +84,7 @@ def tokenize_v4(my_doc, my_nlp):
     tokens = [token.lemma_.lower() for token in doc if token.is_stop == False and token.is_punct == False and token.is_space == False]
     return tokens
 
-def tokenize_v5(my_docs, my_nlp, batch_size=50):
+def tokenize_v5(my_docs, my_nlp, batch_size=200):
     """
     Uses a tokenizer pipeline for performance gains (JK still very slow).
     Params:
@@ -92,6 +92,7 @@ def tokenize_v5(my_docs, my_nlp, batch_size=50):
         my_nlp (spacy.lang.en.English) one of spacy's natural language models
     Returns: a token set (list of token lists)
     """
+    print("TOKENIZING (v5)...")
     tokenizer = Tokenizer(my_nlp.vocab)
     token_sets = []
     for doc in tokenizer.pipe(my_docs, batch_size=batch_size):
@@ -109,6 +110,7 @@ def summarize(token_sets):
     Param: token_sets a list of token lists
     """
 
+    print("COMPILING TOKEN SUMMARY TABLE...")
     token_counter = Counter()
     doc_counter = Counter()
 
@@ -139,9 +141,9 @@ def summarize(token_sets):
     return df.reindex(columns=ordered_columns).sort_values(by="rank")
 
 def plot_top_tokens(token_sets):
-    print(token_sets[0])
     summary_table = summarize(token_sets)
     top_tokens_table = summary_table[summary_table["rank"] <= 20]
+    print("PLOTTING TOP TOKENS...")
 
     #sns.distplot(summary_table["pct"])
     #plt.show()
@@ -159,8 +161,6 @@ def plot_tokens(tokens=["all", "the", "kings", "men", "ate", "all", "the", "king
     plt.show()
 
 if __name__ == "__main__":
-
-    #nlp = spacy.load("en_core_web_md")
 
     #
     # LOADING
@@ -194,6 +194,8 @@ if __name__ == "__main__":
     #print(df["nlp.tokens.v22"].head())
     #plot_top_tokens(df["nlp.tokens.v22"].values.tolist())
 
+    #nlp = spacy.load("en_core_web_md")
+
     #df["nlp.tokens.v3"] = df["reviews.text"].apply(lambda txt: tokenize_v3(txt, nlp))
     #print(df["nlp.tokens.v3"].head())
     #plot_top_tokens(df["nlp.tokens.v3"].values.tolist())
@@ -202,7 +204,7 @@ if __name__ == "__main__":
     #print(df["nlp.tokens.v4"].head())
     #plot_top_tokens(df["nlp.tokens.v4"].values.tolist())
 
-    #df["nlp.tokens.v5"] = tokenize_v5(df["reviews.text"].values.tolist(), nlp)
+    #df["nlp.tokens.v5"] = tokenize_v5(df["reviews.text"], nlp) # OR tokenize_v5(df["reviews.text"].values.tolist(), nlp)
     #print(df["nlp.tokens.v5"].head())
     #plot_top_tokens(df["nlp.tokens.v5"].values.tolist())
 
