@@ -1,5 +1,6 @@
 
 from nltk.corpus import stopwords # FYI: need to run nltk.download() or nltk.download('stopwords') on your machine for this to work
+from gensim.parsing.preprocessing import STOPWORDS as GENSIM_STOPWORDS
 
 def test_custom_removal():
     assert "the blue pajamas".replace("the", "").strip() == "blue pajamas"
@@ -80,3 +81,39 @@ def test_spacy_document_stopwords(nlp):
 
     assert [str(token) for token in doc] == ['the', 'blue', 'pajamas']
     assert [token.is_stop for token in doc] == [True, False, False]
+
+def test_gensim_stopwords():
+    assert set(GENSIM_STOPWORDS) == {
+        'amount', 'go', 'mill', 'name', 'both', 'at', 'became', 'a', 'whenever', 'done', 'side',
+        'such', 'call', 'more', 'co', 'on', 'here', 'herein', 'de', 'con', 'whatever', 'where', 'ltd',
+        'becoming', 'unless', 'ever', 'perhaps', 'less', 'very', 'front', 'hereafter', 'anywhere',
+        'whereafter', 'well', 'either', 'one', 'somewhere', 'hence', 'since', 'those', 'itself',
+        'meanwhile', 'already', 'system', 'next', 'moreover', 'most', 'enough', 'before', 'cant', 'all',
+        'he', 'us', 'make', 'six', 'being', 'three', 'hereupon', 'as', 'don', 'our', 'along', 'others',
+        'get', 'if', 'thick', 'whoever', 'out', 'eleven', 'doesn', 'formerly', 'be', 'yet', 'always',
+        'it', 'she', 'up', 'kg', 'sometime', 'below', 'twenty', 'who', 'else', 'anyway', 'further',
+        'mine', 'down', 'beyond', 'put', 'still', 'did', 'fill', 'via', 'amoungst', 'back', 'of', 'due',
+        'etc', 'again', 'whether', 'seemed', 'also', 'among', 'nine', 'towards', 'per', 'although',
+        'please', 'themselves', 'often', 'say', 'everywhere', 'using', 'for', 'too', 'top', 'may', 'take',
+        'ten', 'seem', 'beforehand', 'they', 'nor', 'part', 'therein', 'another', 'these', 'couldnt',
+        'which', 'himself', 'cry', 'somehow', 'with', 'many', 'any', 'through', 'detail', 'them', 'however',
+        'twelve', 'am', 'few', 'fire', 'sometimes', 'anyhow', 'during', 'least', 'thereafter', 'even',
+        'why', 'your', 'wherein', 'un', 'within', 'serious', 'seeming', 'not', 'have', 'what', 'in',
+        'my', 'or', 'beside', 'same', 'full', 'indeed', 'something', 'about', 'over', 'neither', 'show',
+        'from', 'was', 'several', 'whereby', 'own', 'noone', 'last', 'mostly', 'eight', 'between', 'to',
+        'her', 'cannot', 'is', 'onto', 'around', 'third', 'seems', 'nowhere', 'otherwise', 'under', 'thin',
+        'so', 'thru', 'didn', 'do', 'computer', 'does', 'thereby', 'you', 'must', 'anything', 'whence',
+        'move', 'ours', 'used', 'its', 'and', 'empty', 'ourselves', 'were', 'sincere', 'bill', 'hundred',
+        'throughout', 'had', 'yourselves', 'none', 'above', 'describe', 'hereby', 'inc', 'quite', 'hers',
+        'then', 'thence', 'wherever', 'whom', 'yours', 'could', 'there', 'because', 'latterly', 'give',
+        'whither', 'other', 'together', 'when', 'see', 'really', 'first', 'has', 're', 'would', 'nothing',
+        'whereas', 'their', 'that', 'namely', 'interest', 'amongst', 'the', 'whereupon', 'former', 'anyone',
+        'every', 'by', 'fifty', 'hasnt', 'never', 'across', 'someone', 'might', 'alone', 'into', 'will', 'this',
+        'an', 'much', 'become', 'regarding', 'forty', 'keep', 'just', 'various', 'than', 'two', 'how',
+        'afterwards', 'no', 'doing', 'find', 'until', 'whole', 'five', 'we', 'sixty', 'nevertheless',
+        'made', 'elsewhere', 'some', 'me', 'should', 'only', 'almost', 'besides', 'behind', 'eg', 'latter',
+        'now', 'after', 'km', 'herself', 'everything', 'without', 'whose', 'fifteen', 'against', 'myself',
+        'found', 'him', 'once', 'each', 'can', 'bottom', 'except', 'while', 'four', 'upon', 'becomes', 'but',
+        'are', 'yourself', 'ie', 'off', 'i', 'been', 'though', 'his', 'thereupon', 'nobody', 'rather',
+        'therefore', 'thus', 'everyone', 'toward'
+    }
