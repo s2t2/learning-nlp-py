@@ -75,6 +75,7 @@ def test_count_vectorizer_vocab():
         [0, 0, 0, 1]  # "until they all got tired and went to sleep zzz"
     ])
     assert np.array_equal(matrix.toarray(), expected_vals)
+    assert np.array_equal(matrix.todense(), expected_vals)
     assert cv.get_feature_names() == vocab
 
 def test_count_vectorizer_stopwords():
@@ -99,10 +100,30 @@ def test_count_vectorizer_ngrams():
         [1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]  # "until they all got tired and went to sleep zzz"
     ])
     assert np.array_equal(matrix.toarray(), expected_vals)
+    assert np.array_equal(matrix.todense(), expected_vals)
     assert cv.get_feature_names() == expected_features
 
-#def test_count_vectorizer_custom():
+def test_count_vectorizer_custom(nlp):
+    #def my_preprocessor(text):
+    #    return text.upper() # LOOKS LIKE THIS GETS RE-CONVERTED LATER TO LOWERCASE (BUT YOU COULD DO MORE COMPLICATED PROCESSING HERE, LIKE REMOVING CERTAIN SPECIAL CHARS)
+
+    def my_tokenizer(text):
+        doc = nlp(text) #> <class 'spacy.tokens.doc.Doc'>
+        tokens = [token.lemma_.lower() for token in doc if token.is_stop == False and token.is_punct == False and token.is_space == False]
+        return tokens
+
     #cv = CountVectorizer(preprocessor=my_preprocessor, tokenizer=my_tokenizer, ngram_range=(1,2), stop_words='english')
+    cv = CountVectorizer(tokenizer=my_tokenizer, ngram_range=(1,2), stop_words='english')
+    matrix = cv.fit_transform(DOCUMENTS)
+    expected_features = ['eat', 'eat king', 'hen', 'king', 'king hen', 'king man', 'man', 'sleep', 'sleep zzz', 'tired', 'tired sleep', 'zzz']
+    expected_vals = np.array([
+        [0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0], # "all the kings men"
+        [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0], # "ate all the kings hens"
+        [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1]  # "until they all got tired and went to sleep zzz"
+    ])
+    assert np.array_equal(matrix.toarray(), expected_vals)
+    assert np.array_equal(matrix.todense(), expected_vals)
+    assert cv.get_feature_names() == expected_features
 
 def test_tfidf_vectorizer():
     tfidf = TfidfVectorizer(min_df=2, max_df=0.5, ngram_range=(1,2))
