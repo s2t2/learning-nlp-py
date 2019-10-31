@@ -37,6 +37,9 @@
   + [`Series.str.count()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.str.count.html)
   + [`Series.value_counts()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html)
   + [Reorder dataframe columns](https://stackoverflow.com/a/39237712/670433)
+  + [Merging dataframes](https://chrisalbon.com/python/data_wrangling/pandas_join_merge_dataframe/)
+  + [Merging, joining, concatenating dataframes](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
+  + [DataFrame `iloc` vs `loc`](https://stackoverflow.com/questions/31593201/how-are-iloc-ix-and-loc-different)
 
 ## NLTK
 
