@@ -50,22 +50,7 @@ if __name__ == "__main__":
     print("TEXTS DATAFRAME", texts_df.shape)
     print(texts_df.head(3))
 
-    #cv = CountVectorizer()
-    #feature_matrix = cv.fit_transform(texts_df["text"]) #> <class 'scipy.sparse.csr.csr_matrix'>
-    #feature_names = cv.get_feature_names()
-    #features_df = pd.DataFrame(data=feature_matrix.toarray(), index=texts_df["filename"], columns=feature_names)
-    #print("FEATURE MATRIX DATAFRAME", features_df.shape)
-    #print(features_df.head(3))
-    #
-    #df = pd.merge(texts_df, features_df, on="filename")
-    #print("DATAFRAME WITH TEXTS AND FEATURES")
-    #first_row = df.iloc[0].to_dict()
-    ##print(first_row)
-    #first_row_abbrev = { k: first_row[k] for k in ["filename", "text_x", "ink", "drive", "democracy", "europe"] }
-    #pprint(first_row_abbrev)
-
     df = vectorized_dataframe(texts_df)
-    print("DATAFRAME WITH TEXTS AND FEATURES")
     first_row = df.iloc[0].to_dict()
     first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "txt.contents", "ink", "drive", "democracy", "europe"] }
     pprint(first_row_abbrev)

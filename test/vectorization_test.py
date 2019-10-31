@@ -34,6 +34,7 @@ def test_count_vectorizer():
         [1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1]  # "until they all got tired and went to sleep zzz"
     ])
     assert np.array_equal(matrix.toarray(), expected_vals)
+    assert np.array_equal(matrix.todense(), expected_vals)
     features = cv.get_feature_names()
     assert features == ['all', 'and', 'ate', 'got', 'hens', 'kings', 'men', 'sleep', 'the', 'they', 'tired', 'to', 'until', 'went', 'zzz']
 
@@ -48,6 +49,7 @@ def test_count_vectorizer():
         [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]  # "very funny"
     ])
     assert np.array_equal(matrix.toarray(), expected_vals)
+    assert np.array_equal(matrix.todense(), expected_vals)
     assert cv.get_feature_names() == ['action', 'did', 'funny', 'good', 'it', 'like', 'lots', 'movie', 'not', 'of', 'popcorn', 'smells', 'that', 'very']
 
     cv = CountVectorizer()
@@ -60,6 +62,7 @@ def test_count_vectorizer():
         [0, 1, 0, 0, 0, 0, 1]  # "good one"
     ])
     assert np.array_equal(matrix.toarray(), expected_vals)
+    assert np.array_equal(matrix.todense(), expected_vals)
     assert cv.get_feature_names() == ['did', 'good', 'it', 'like', 'movie', 'not', 'one']
 
 def test_count_vectorizer_vocab():
