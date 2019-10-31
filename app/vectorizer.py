@@ -4,7 +4,7 @@ from pprint import pprint
 
 import pandas as pd
 #import spacy
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
 BBC_DOCS_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "data", "bbc_docs")
 
@@ -34,23 +34,50 @@ def text_files_dataframe(dirpath):
     df = pd.DataFrame(text_file_mappings)
     return df
 
-def vectorized_dataframe(texts_df):
+def count_vectorized_dataframe(texts_df):
     """
     Param: texts_df (pd.DataFrame) a dataframe with columns "txt.filename" and "txt.contents"
     """
     cv = CountVectorizer()
     feature_matrix = cv.fit_transform(texts_df["txt.contents"]) #> <class 'scipy.sparse.csr.csr_matrix'>
+    data = feature_matrix.toarray()
     feature_names = cv.get_feature_names()
-    features_df = pd.DataFrame(data=feature_matrix.toarray(), index=texts_df["txt.filename"], columns=feature_names)
+    features_df = pd.DataFrame(data=data, index=texts_df["txt.filename"], columns=feature_names)
+    return pd.merge(texts_df, features_df, on="txt.filename")
+
+def tfidf_vectorized_dataframe(texts_df, dense=True):
+    """
+    Param: texts_df (pd.DataFrame) a dataframe with columns "txt.filename" and "txt.contents"
+    """
+    tv = TfidfVectorizer()
+    feature_matrix = tv.fit_transform(texts_df["txt.contents"]) #> <class 'scipy.sparse.csr.csr_matrix'>
+    if dense == True:
+        data = feature_matrix.todense()
+    else:
+        data = feature_matrix.toarray()
+    feature_names = tv.get_feature_names()
+    features_df = pd.DataFrame(data=data, index=texts_df["txt.filename"], columns=feature_names)
     return pd.merge(texts_df, features_df, on="txt.filename")
 
 if __name__ == "__main__":
 
     texts_df = text_files_dataframe(BBC_DOCS_DIRPATH)
+    print("---------------------")
     print("TEXTS DATAFRAME", texts_df.shape)
     print(texts_df.head(3))
 
-    df = vectorized_dataframe(texts_df)
+    print("---------------------")
+    print("COUNT VECTOR (SPARSE)")
+    df = count_vectorized_dataframe(texts_df)
     first_row = df.iloc[0].to_dict()
-    first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "txt.contents", "ink", "drive", "democracy", "europe"] }
+    #first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "txt.contents", "ink", "drive", "democracy", "europe"] }
+    first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "ink", "drive", "democracy", "europe"] }
+    pprint(first_row_abbrev)
+
+    print("---------------------")
+    print("TFIDF VECTOR (SPARSE)")
+    df = tfidf_vectorized_dataframe(texts_df)
+    first_row = df.iloc[0].to_dict()
+    #first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "txt.contents", "ink", "drive", "democracy", "europe"] }
+    first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "ink", "drive", "democracy", "europe"] }
     pprint(first_row_abbrev)

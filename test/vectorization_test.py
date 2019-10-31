@@ -126,6 +126,37 @@ def test_count_vectorizer_custom(nlp):
     assert cv.get_feature_names() == expected_features
 
 def test_tfidf_vectorizer():
+    tv = TfidfVectorizer()
+    matrix = tv.fit_transform(DOCUMENTS)
+    expected_features = ['all', 'and', 'ate', 'got', 'hens', 'kings', 'men', 'sleep', 'the', 'they', 'tired', 'to', 'until', 'went', 'zzz']
+    assert tv.get_feature_names() == expected_features
+    #expected_vals = np.array([
+    #    [0.37311881, 0.        , 0.        , 0.        , 0.        , 0.4804584 , 0.63174505, 0.        , 0.4804584 , 0.        ,0.        , 0.        , 0.        , 0.        , 0.        ],
+    #    [0.31544415, 0.        , 0.53409337, 0.        , 0.53409337, 0.40619178, 0.        , 0.        , 0.40619178, 0.        , 0.        , 0.        , 0.        , 0.        , 0.        ],
+    #    [0.19316423, 0.32705548, 0.        , 0.32705548, 0.        , 0.        , 0.        , 0.32705548, 0.        , 0.32705548, 0.32705548, 0.32705548, 0.32705548, 0.32705548, 0.32705548]
+    #]) # assertions messing up due to float datatypes
+    converted_vals = [
+        [round(float(val), 4) for val in matrix.toarray()[0]],
+        [round(float(val), 4) for val in matrix.toarray()[1]],
+        [round(float(val), 4) for val in matrix.toarray()[2]],
+    ] # clean up dataset to facilitate assertions
+    expected_vals = [
+        [0.3731, 0.0,   0.0,    0.0,    0.0,    0.4805, 0.6317, 0.0,    0.4805, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        [0.3154, 0.0,   0.5341, 0.0,    0.5341, 0.4062, 0.0,    0.0,    0.4062, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        [0.1932, 0.3271, 0.0,   0.3271, 0.0,    0.0,    0.0,    0.3271, 0.0,    0.3271, 0.3271, 0.3271, 0.3271, 0.3271, 0.3271]
+    ]
+    assert np.array_equal(converted_vals, expected_vals)
+    assert(matrix.toarray().shape) == (3, 15)
+    #dense_vals = [
+    #    [round(float(val), 4) for val in matrix.todense()[0]],
+    #    [round(float(val), 4) for val in matrix.todense()[1]],
+    #    [round(float(val), 4) for val in matrix.todense()[2]],
+    #] # clean up dataset to facilitate assertions
+    #> TypeError: only size-1 arrays can be converted to Python scalars
+    #assert np.array_equal(dense_vals, expected_vals)
+    assert(matrix.todense().shape) == (3, 15)
+
+def test_tfidf_vectorizer_custom():
     tfidf = TfidfVectorizer(min_df=2, max_df=0.5, ngram_range=(1,2))
 
     features = tfidf.fit_transform(DOCS1) #> <6x4 sparse matrix of type '<class 'numpy.float64'>'
