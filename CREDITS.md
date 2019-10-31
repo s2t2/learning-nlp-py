@@ -29,6 +29,7 @@
   + [Figure Eight Datasets](https://www.figure-eight.com/data-for-everyone/)
   + [NLTK Datasets](https://github.com/nltk/nltk/wiki/Sentiment-Analysis#datasets)
   + [UIC Datasets](https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html#datasets)
+  + [BBC Dataset](http://mlg.ucd.ie/datasets/bbc.html)
 
 ## Pandas
 
