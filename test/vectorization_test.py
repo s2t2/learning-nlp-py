@@ -99,7 +99,7 @@ def test_count_vectorizer_ngrams():
     assert cv.get_feature_names() == expected_features
 
 #def test_count_vectorizer_custom():
-#    #cv = CountVectorizer(preprocessor=my_preprocessor, tokenizer=my_tokenizer, ngram_range=(1,2), stop_words='english')
+    #cv = CountVectorizer(preprocessor=my_preprocessor, tokenizer=my_tokenizer, ngram_range=(1,2), stop_words='english')
 
 def test_tfidf_vectorizer():
     tfidf = TfidfVectorizer(min_df=2, max_df=0.5, ngram_range=(1,2))

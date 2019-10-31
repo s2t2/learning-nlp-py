@@ -21,7 +21,7 @@ def parse_text_files(dirpath):
         txt_filepath = os.path.join(dirpath, txt_filename)
         with open(txt_filepath, "rb") as txt_file:
             #texts.append(txt_file.read())
-            texts.append({"filename": txt_filename, "text": txt_file.read()})
+            texts.append({"txt.filename": txt_filename, "txt.contents": txt_file.read()}) # using "txt." prefixes here because later when this df is merged with the features df, if any of the feature column names are "text" for example, it will change the column names to "text_x" vs "text_y", so just namespace and lessen the chance of that happening...
     return texts
 
 def text_files_dataframe(dirpath):
@@ -34,22 +34,38 @@ def text_files_dataframe(dirpath):
     df = pd.DataFrame(text_file_mappings)
     return df
 
+def vectorized_dataframe(texts_df):
+    """
+    Param: texts_df (pd.DataFrame) a dataframe with columns "txt.filename" and "txt.contents"
+    """
+    cv = CountVectorizer()
+    feature_matrix = cv.fit_transform(texts_df["txt.contents"]) #> <class 'scipy.sparse.csr.csr_matrix'>
+    feature_names = cv.get_feature_names()
+    features_df = pd.DataFrame(data=feature_matrix.toarray(), index=texts_df["txt.filename"], columns=feature_names)
+    return pd.merge(texts_df, features_df, on="txt.filename")
+
 if __name__ == "__main__":
 
     texts_df = text_files_dataframe(BBC_DOCS_DIRPATH)
     print("TEXTS DATAFRAME", texts_df.shape)
     print(texts_df.head(3))
 
-    cv = CountVectorizer()
-    feature_matrix = cv.fit_transform(texts_df["text"]) #> <class 'scipy.sparse.csr.csr_matrix'>
-    feature_names = cv.get_feature_names()
-    features_df = pd.DataFrame(data=feature_matrix.toarray(), index=texts_df["filename"], columns=feature_names)
-    print("FEATURE MATRIX DATAFRAME", features_df.shape)
-    print(features_df.head(3))
+    #cv = CountVectorizer()
+    #feature_matrix = cv.fit_transform(texts_df["text"]) #> <class 'scipy.sparse.csr.csr_matrix'>
+    #feature_names = cv.get_feature_names()
+    #features_df = pd.DataFrame(data=feature_matrix.toarray(), index=texts_df["filename"], columns=feature_names)
+    #print("FEATURE MATRIX DATAFRAME", features_df.shape)
+    #print(features_df.head(3))
+    #
+    #df = pd.merge(texts_df, features_df, on="filename")
+    #print("DATAFRAME WITH TEXTS AND FEATURES")
+    #first_row = df.iloc[0].to_dict()
+    ##print(first_row)
+    #first_row_abbrev = { k: first_row[k] for k in ["filename", "text_x", "ink", "drive", "democracy", "europe"] }
+    #pprint(first_row_abbrev)
 
-    df = pd.merge(texts_df, features_df, on="filename")
+    df = vectorized_dataframe(texts_df)
     print("DATAFRAME WITH TEXTS AND FEATURES")
     first_row = df.iloc[0].to_dict()
-    #print(first_row)
-    first_row_abbrev = { k: first_row[k] for k in ["filename", "text_x", "ink", "drive", "democracy", "europe"] }
+    first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "txt.contents", "ink", "drive", "democracy", "europe"] }
     pprint(first_row_abbrev)
