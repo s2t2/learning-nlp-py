@@ -37,17 +37,6 @@ def test_count_vectorizer():
     features = cv.get_feature_names()
     assert features == ['all', 'and', 'ate', 'got', 'hens', 'kings', 'men', 'sleep', 'the', 'they', 'tired', 'to', 'until', 'went', 'zzz']
 
-    vocab = ['hens', 'kings', 'men', 'sleep']
-    cv = CountVectorizer(vocabulary=vocab) # pass vocab to specify desired features
-    matrix = cv.fit_transform(DOCUMENTS) #> <class 'scipy.sparse.csr.csr_matrix'>
-    expected_vals = np.array([
-        [0, 1, 1, 0], # "all the kings men"
-        [1, 1, 0, 0], # "ate all the kings hens"
-        [0, 0, 0, 1]  # "until they all got tired and went to sleep zzz"
-    ])
-    assert np.array_equal(matrix.toarray(), expected_vals)
-    assert cv.get_feature_names() == vocab
-
     cv = CountVectorizer()
     matrix = cv.fit_transform(DOCS1) #> <class 'scipy.sparse.csr.csr_matrix'>
     expected_vals = np.array([
@@ -72,6 +61,45 @@ def test_count_vectorizer():
     ])
     assert np.array_equal(matrix.toarray(), expected_vals)
     assert cv.get_feature_names() == ['did', 'good', 'it', 'like', 'movie', 'not', 'one']
+
+def test_count_vectorizer_vocab():
+    vocab = ['hens', 'kings', 'men', 'sleep']
+    cv = CountVectorizer(vocabulary=vocab) # pass vocab to specify desired features
+    matrix = cv.fit_transform(DOCUMENTS) #> <class 'scipy.sparse.csr.csr_matrix'>
+    expected_vals = np.array([
+        [0, 1, 1, 0], # "all the kings men"
+        [1, 1, 0, 0], # "ate all the kings hens"
+        [0, 0, 0, 1]  # "until they all got tired and went to sleep zzz"
+    ])
+    assert np.array_equal(matrix.toarray(), expected_vals)
+    assert cv.get_feature_names() == vocab
+
+def test_count_vectorizer_stopwords():
+    cv = CountVectorizer(stop_words="english")
+    matrix = cv.fit_transform(DOCUMENTS)
+    expected_features = ['ate', 'got', 'hens', 'kings', 'men', 'sleep', 'tired', 'went', 'zzz']
+    expected_vals = np.array([
+        [0, 0, 0, 1, 1, 0, 0, 0, 0], # "all the kings men"
+        [1, 0, 1, 1, 0, 0, 0, 0, 0], # "ate all the kings hens"
+        [0, 1, 0, 0, 0, 1, 1, 1, 1] # "until they all got tired and went to sleep zzz"
+    ])
+    assert np.array_equal(matrix.toarray(), expected_vals)
+    assert cv.get_feature_names() == expected_features
+
+def test_count_vectorizer_ngrams():
+    cv = CountVectorizer(ngram_range=(1,2))
+    matrix = cv.fit_transform(DOCUMENTS)
+    expected_features = ['all', 'all got', 'all the', 'and', 'and went', 'ate', 'ate all', 'got', 'got tired', 'hens', 'kings', 'kings hens', 'kings men', 'men', 'sleep', 'sleep zzz', 'the', 'the kings', 'they', 'they all', 'tired', 'tired and', 'to', 'to sleep', 'until', 'until they', 'went', 'went to', 'zzz']
+    expected_vals = np.array([
+        [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], # "all the kings men"
+        [1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], # "ate all the kings hens"
+        [1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]  # "until they all got tired and went to sleep zzz"
+    ])
+    assert np.array_equal(matrix.toarray(), expected_vals)
+    assert cv.get_feature_names() == expected_features
+
+#def test_count_vectorizer_custom():
+#    #cv = CountVectorizer(preprocessor=my_preprocessor, tokenizer=my_tokenizer, ngram_range=(1,2), stop_words='english')
 
 def test_tfidf_vectorizer():
     tfidf = TfidfVectorizer(min_df=2, max_df=0.5, ngram_range=(1,2))
