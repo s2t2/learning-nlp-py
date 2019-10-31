@@ -1,7 +1,7 @@
 
 
 from collections import Counter
-#from nltk.probability import FreqDist
+from nltk.probability import FreqDist
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import numpy as np
 
@@ -20,9 +20,10 @@ def test_counter():
         counter.update(tokens) # pass a list of words to group by word, pass a word to group by char
     assert counter.most_common(3) == [('all', 3), ('the', 2), ('kings', 2)]
 
-#def test_nltk_frequency_dist():
-#    my_dist = FreqDist({'the': 3, 'dog': 2, 'not': 1})
-#    print(my_dist.most_common(2))
+def test_nltk_frequency_dist():
+    TOKENS = np.concatenate(TOKEN_SETS)
+    dist = FreqDist(TOKENS)
+    assert dist.most_common(3) == [('all', 3), ('the', 2), ('kings', 2)]
 
 def test_count_vectorizer():
     cv = CountVectorizer()

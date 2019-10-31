@@ -44,6 +44,7 @@
 ## NLTK
 
   + [Frequency Distributions](https://www.nltk.org/api/nltk.html?highlight=freqdist)
+  + [Frequency Distributions example](https://stackoverflow.com/a/18119400/670433)
 
 ## Scikit-Learn
 
