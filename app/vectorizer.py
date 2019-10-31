@@ -5,8 +5,10 @@ from pprint import pprint
 import pandas as pd
 #import spacy
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 BBC_DOCS_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "data", "bbc_docs")
+EXPORTS_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "data", "exports")
 
 def parse_text_files(dirpath):
     """
@@ -45,7 +47,7 @@ def count_vectorized_dataframe(texts_df):
     features_df = pd.DataFrame(data=data, index=texts_df["txt.filename"], columns=feature_names)
     return pd.merge(texts_df, features_df, on="txt.filename")
 
-def tfidf_vectorized_dataframe(texts_df, dense=True):
+def tfidf_vectorized_dataframe(texts_df, dense=False):
     """
     Param: texts_df (pd.DataFrame) a dataframe with columns "txt.filename" and "txt.contents"
     """
@@ -59,6 +61,34 @@ def tfidf_vectorized_dataframe(texts_df, dense=True):
     features_df = pd.DataFrame(data=data, index=texts_df["txt.filename"], columns=feature_names)
     return pd.merge(texts_df, features_df, on="txt.filename")
 
+#def cosine_similarity_matrix(vectorized_df):
+#    """
+#    Param: vectorized_df (pd.DataFrame) a dataframe with columns "txt.filename" and "txt.contents",
+#            ... and also a column for each feature (feature matrix)
+#    """
+#    features_df = vectorized_df
+#    del features_df["txt.filename"]
+#    del features_df["txt.contents"]
+#    similarity_matrix = cosine_similarity(features_df)
+#    return similarity_matrix # pd.DataFrame(similarity_matrix)
+
+def cosine_similarity_df(vectorized_df):
+    """
+    Param: vectorized_df (pd.DataFrame) a dataframe with columns "txt.filename" and "txt.contents",
+            ... and also a column for each feature (feature matrix)
+    """
+    docs_df = vectorized_df[["txt.filename", "txt.contents"]]
+
+    features_df = vectorized_df
+    del features_df["txt.filename"]
+    del features_df["txt.contents"]
+    similarity_matrix = cosine_similarity(features_df)
+    similarity_df = pd.DataFrame(similarity_matrix)
+
+    #print("COMBINING", docs_df.shape, similarity_df.shape) #> (401, 2) (401, 401)
+    combined_df = pd.concat([docs_df, similarity_df], axis=1)
+    return combined_df
+
 if __name__ == "__main__":
 
     texts_df = text_files_dataframe(BBC_DOCS_DIRPATH)
@@ -69,15 +99,40 @@ if __name__ == "__main__":
     print("---------------------")
     print("COUNT VECTOR (SPARSE)")
     df = count_vectorized_dataframe(texts_df)
+    print(df.shape)
     first_row = df.iloc[0].to_dict()
-    #first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "txt.contents", "ink", "drive", "democracy", "europe"] }
     first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "ink", "drive", "democracy", "europe"] }
     pprint(first_row_abbrev)
 
     print("---------------------")
     print("TFIDF VECTOR (SPARSE)")
     df = tfidf_vectorized_dataframe(texts_df)
+    print(df.shape) #> (401, 12098)
     first_row = df.iloc[0].to_dict()
-    #first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "txt.contents", "ink", "drive", "democracy", "europe"] }
     first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "ink", "drive", "democracy", "europe"] }
     pprint(first_row_abbrev)
+
+    print("---")
+    print("DOCUMENT SIMILARITY")
+    #similarity_matrix = cosine_similarity_matrix(df)
+    #print(type(similarity_matrix), similarity_matrix.shape)
+    #print(sorted(similarity_matrix[0])[0:10])
+    similarity_df = cosine_similarity_df(df)
+    similarity_df.to_csv(os.path.join(EXPORTS_DIRPATH, "doc_similarities.csv"))
+
+    first_doc = similarity_df.iloc[0]
+    print(first_doc)
+    similar_docs = similarity_df.loc[:, ~similarity_df.columns.isin(["txt.filename", "txt.contents"])].iloc[0]
+    most_similar_docs = similar_docs.sort_values(ascending=False)[0:10]
+    print(most_similar_docs)
+
+
+
+
+    #print("---------------------")
+    #print("TFIDF VECTOR (DENSE)")
+    #df = tfidf_vectorized_dataframe(texts_df, dense=True)
+    #first_row = df.iloc[0].to_dict()
+    ##first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "txt.contents", "ink", "drive", "democracy", "europe"] }
+    #first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "ink", "drive", "democracy", "europe"] }
+    #pprint(first_row_abbrev)

@@ -40,6 +40,8 @@
   + [Merging dataframes](https://chrisalbon.com/python/data_wrangling/pandas_join_merge_dataframe/)
   + [Merging, joining, concatenating dataframes](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
   + [DataFrame `iloc` vs `loc`](https://stackoverflow.com/questions/31593201/how-are-iloc-ix-and-loc-different)
+  + [DataFrame select multiple columns](https://stackoverflow.com/questions/11285613/selecting-multiple-columns-in-a-pandas-dataframe)
+  + [DataFrame dropping columns](https://stackoverflow.com/questions/20230326/retrieve-dataframe-of-all-but-one-specified-column)
 
 ## NLTK
 
