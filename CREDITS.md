@@ -48,6 +48,7 @@
 ## Scikit-Learn
 
   + [`CountVectorizer`](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html)
+  + [`CountVectorizer` vocab example](https://stackoverflow.com/questions/22920801/can-i-use-countvectorizer-in-scikit-learn-to-count-frequency-of-documents-that-w)
 
 ## Pytest
 

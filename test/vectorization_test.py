@@ -36,9 +36,20 @@ def test_count_vectorizer():
     features = cv.get_feature_names()
     assert features == ['all', 'and', 'ate', 'got', 'hens', 'kings', 'men', 'sleep', 'the', 'they', 'tired', 'to', 'until', 'went', 'zzz']
 
-    cv1 = CountVectorizer()
-    matrix1 = cv1.fit_transform(DOCS1) #> <class 'scipy.sparse.csr.csr_matrix'>
-    expected_vals1 = np.array([
+    vocab = ['hens', 'kings', 'men', 'sleep']
+    cv = CountVectorizer(vocabulary=vocab) # pass vocab to specify desired features
+    matrix = cv.fit_transform(DOCUMENTS) #> <class 'scipy.sparse.csr.csr_matrix'>
+    expected_vals = np.array([
+        [0, 1, 1, 0], # "all the kings men"
+        [1, 1, 0, 0], # "ate all the kings hens"
+        [0, 0, 0, 1]  # "until they all got tired and went to sleep zzz"
+    ])
+    assert np.array_equal(matrix.toarray(), expected_vals)
+    assert cv.get_feature_names() == vocab
+
+    cv = CountVectorizer()
+    matrix = cv.fit_transform(DOCS1) #> <class 'scipy.sparse.csr.csr_matrix'>
+    expected_vals = np.array([
         [0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0], # "did not like that movie"
         [0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0], # "not a good movie"
         [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], # "popcorn smells good"
@@ -46,22 +57,20 @@ def test_count_vectorizer():
         [1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0], # "lots of action"
         [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]  # "very funny"
     ])
-    assert np.array_equal(matrix1.toarray(), expected_vals1)
-    features1 = cv1.get_feature_names()
-    assert features1 == ['action', 'did', 'funny', 'good', 'it', 'like', 'lots', 'movie', 'not', 'of', 'popcorn', 'smells', 'that', 'very']
+    assert np.array_equal(matrix.toarray(), expected_vals)
+    assert cv.get_feature_names() == ['action', 'did', 'funny', 'good', 'it', 'like', 'lots', 'movie', 'not', 'of', 'popcorn', 'smells', 'that', 'very']
 
-    cv2 = CountVectorizer()
-    matrix2 = cv2.fit_transform(DOCS2) #> <class 'scipy.sparse.csr.csr_matrix'>
-    expected_vals2 = np.array([
+    cv = CountVectorizer()
+    matrix = cv.fit_transform(DOCS2) #> <class 'scipy.sparse.csr.csr_matrix'>
+    expected_vals = np.array([
         [0, 1, 0, 0, 1, 0, 0], # "good movie"
         [0, 1, 0, 0, 1, 1, 0], # "not a good movie"
         [1, 0, 0, 1, 0, 1, 0], # "did not like"
         [0, 0, 1, 1, 0, 0, 0], # "i like it"
         [0, 1, 0, 0, 0, 0, 1]  # "good one"
     ])
-    assert np.array_equal(matrix2.toarray(), expected_vals2)
-    features2 = cv2.get_feature_names()
-    assert features2 == ['did', 'good', 'it', 'like', 'movie', 'not', 'one']
+    assert np.array_equal(matrix.toarray(), expected_vals)
+    assert cv.get_feature_names() == ['did', 'good', 'it', 'like', 'movie', 'not', 'one']
 
 def test_tfidf_vectorizer():
     tfidf = TfidfVectorizer(min_df=2, max_df=0.5, ngram_range=(1,2))
@@ -77,9 +86,9 @@ def test_tfidf_vectorizer():
     #>    [0.        , 0.        , 0.        , 0.        ],
     #>    [0.        , 0.        , 0.        , 0.        ]])
 
-    features2 = tfidf.fit_transform(DOCS2)
+    features = tfidf.fit_transform(DOCS2)
     assert tfidf.get_feature_names() == ['good movie', 'like', 'movie', 'not']
-    assert features2.todense().shape == (5,4)
+    assert features.todense().shape == (5,4)
     #>matrix(
     #>    [[0.70710678, 0.        , 0.70710678, 0.        ],
     #>    [0.57735027, 0.        , 0.57735027, 0.57735027],
