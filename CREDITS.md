@@ -17,6 +17,7 @@
   + [Sentiment Analysis with RNN, by Susan](https://towardsdatascience.com/a-beginners-guide-on-sentiment-analysis-with-rnn-9e100627c02e) | [source](https://github.com/susanli2016/NLP-with-Python/blob/master/Sentiment%20Analysis%20with%20RNN.ipynb)
   + [Twitter Sentiment Analysis, by Prateek](https://www.analyticsvidhya.com/blog/2018/07/hands-on-sentiment-analysis-dataset-python/)
   + [Sense2Vec](https://explosion.ai/blog/sense2vec-with-spacy)
+  + [Scikit Learn Vectorizers](https://towardsdatascience.com/hacking-scikit-learns-vectorizers-9ef26a7170af)
 
 ## Datasets
 

@@ -3,8 +3,9 @@
 from collections import Counter
 #from nltk.probability import FreqDist
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+import numpy as np
 
-from conftest import TOKEN_SETS
+from conftest import TOKEN_SETS, DOCUMENTS
 
 DOCS1 = [
     "did not like that movie", "not a good movie", "popcorn smells good",
@@ -23,9 +24,44 @@ def test_counter():
 #    my_dist = FreqDist({'the': 3, 'dog': 2, 'not': 1})
 #    print(my_dist.most_common(2))
 
-#def test_count_vectorizer():
-#    my_dist = FreqDist({'the': 3, 'dog': 2, 'not': 1})
-#    print(my_dist.most_common(2))
+def test_count_vectorizer():
+    cv = CountVectorizer()
+    matrix = cv.fit_transform(DOCUMENTS) #> <class 'scipy.sparse.csr.csr_matrix'>
+    expected_vals = np.array([
+        [1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0], # "all the kings men"
+        [1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0], # "ate all the kings hens"
+        [1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1]  # "until they all got tired and went to sleep zzz"
+    ])
+    assert np.array_equal(matrix.toarray(), expected_vals)
+    features = cv.get_feature_names()
+    assert features == ['all', 'and', 'ate', 'got', 'hens', 'kings', 'men', 'sleep', 'the', 'they', 'tired', 'to', 'until', 'went', 'zzz']
+
+    cv1 = CountVectorizer()
+    matrix1 = cv1.fit_transform(DOCS1) #> <class 'scipy.sparse.csr.csr_matrix'>
+    expected_vals1 = np.array([
+        [0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0], # "did not like that movie"
+        [0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0], # "not a good movie"
+        [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], # "popcorn smells good"
+        [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], # "i like it"
+        [1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0], # "lots of action"
+        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]  # "very funny"
+    ])
+    assert np.array_equal(matrix1.toarray(), expected_vals1)
+    features1 = cv1.get_feature_names()
+    assert features1 == ['action', 'did', 'funny', 'good', 'it', 'like', 'lots', 'movie', 'not', 'of', 'popcorn', 'smells', 'that', 'very']
+
+    cv2 = CountVectorizer()
+    matrix2 = cv2.fit_transform(DOCS2) #> <class 'scipy.sparse.csr.csr_matrix'>
+    expected_vals2 = np.array([
+        [0, 1, 0, 0, 1, 0, 0], # "good movie"
+        [0, 1, 0, 0, 1, 1, 0], # "not a good movie"
+        [1, 0, 0, 1, 0, 1, 0], # "did not like"
+        [0, 0, 1, 1, 0, 0, 0], # "i like it"
+        [0, 1, 0, 0, 0, 0, 1]  # "good one"
+    ])
+    assert np.array_equal(matrix2.toarray(), expected_vals2)
+    features2 = cv2.get_feature_names()
+    assert features2 == ['did', 'good', 'it', 'like', 'movie', 'not', 'one']
 
 def test_tfidf_vectorizer():
     tfidf = TfidfVectorizer(min_df=2, max_df=0.5, ngram_range=(1,2))
