@@ -56,3 +56,13 @@ def test_cosine_similarity_dataframe():
             1: 0.06093252799951177,
             2: 1.0000000000000002
         }]
+
+
+def test_spacy_similarity(nlp):
+    doc1 = nlp(DOCUMENTS[0])
+    doc2 = nlp(DOCUMENTS[1])
+    doc3 = nlp(DOCUMENTS[2])
+
+    assert doc1.similarity(doc2) == 0.7986792558854244
+    assert doc1.similarity(doc3) == 0.6597250374980631
+    assert doc2.similarity(doc3) == 0.712800124804148
