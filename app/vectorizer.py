@@ -6,6 +6,7 @@ import pandas as pd
 #import spacy
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.neighbors import NearestNeighbors
 
 BBC_DOCS_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "data", "bbc_docs")
 EXPORTS_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "data", "exports")
@@ -79,9 +80,11 @@ def cosine_similarity_df(vectorized_df):
     """
     docs_df = vectorized_df[["txt.filename", "txt.contents"]]
 
-    features_df = vectorized_df
-    del features_df["txt.filename"]
-    del features_df["txt.contents"]
+    #features_df = vectorized_df
+    #del features_df["txt.filename"]
+    #del features_df["txt.contents"]
+    features_df = vectorized_df.loc[:, ~vectorized_df.columns.isin(["txt.filename", "txt.contents"])]
+
     similarity_matrix = cosine_similarity(features_df)
     similarity_df = pd.DataFrame(similarity_matrix)
 
@@ -93,13 +96,15 @@ if __name__ == "__main__":
 
     texts_df = text_files_dataframe(BBC_DOCS_DIRPATH)
     print("---------------------")
-    print("TEXTS DATAFRAME", texts_df.shape)
+    print("TEXTS DATAFRAME")
+    print(texts_df.shape)
     print(texts_df.head(3))
 
     print("---------------------")
     print("COUNT VECTOR (SPARSE)")
     df = count_vectorized_dataframe(texts_df)
     print(df.shape)
+    df.to_csv(os.path.join(EXPORTS_DIRPATH, "counts_matrix.csv"))
     first_row = df.iloc[0].to_dict()
     first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "ink", "drive", "democracy", "europe"] }
     pprint(first_row_abbrev)
@@ -108,26 +113,10 @@ if __name__ == "__main__":
     print("TFIDF VECTOR (SPARSE)")
     df = tfidf_vectorized_dataframe(texts_df)
     print(df.shape) #> (401, 12098)
+    df.to_csv(os.path.join(EXPORTS_DIRPATH, "tfidf_matrix.csv"))
     first_row = df.iloc[0].to_dict()
     first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "ink", "drive", "democracy", "europe"] }
     pprint(first_row_abbrev)
-
-    print("---")
-    print("DOCUMENT SIMILARITY")
-    #similarity_matrix = cosine_similarity_matrix(df)
-    #print(type(similarity_matrix), similarity_matrix.shape)
-    #print(sorted(similarity_matrix[0])[0:10])
-    similarity_df = cosine_similarity_df(df)
-    similarity_df.to_csv(os.path.join(EXPORTS_DIRPATH, "doc_similarities.csv"))
-
-    first_doc = similarity_df.iloc[0]
-    print(first_doc)
-    similar_docs = similarity_df.loc[:, ~similarity_df.columns.isin(["txt.filename", "txt.contents"])].iloc[0]
-    most_similar_docs = similar_docs.sort_values(ascending=False)[0:10]
-    print(most_similar_docs)
-
-
-
 
     #print("---------------------")
     #print("TFIDF VECTOR (DENSE)")
@@ -136,3 +125,38 @@ if __name__ == "__main__":
     ##first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "txt.contents", "ink", "drive", "democracy", "europe"] }
     #first_row_abbrev = { k: first_row[k] for k in ["txt.filename", "ink", "drive", "democracy", "europe"] }
     #pprint(first_row_abbrev)
+
+    print("---------------------")
+    print("DOCUMENT SIMILARITY (COSINE)")
+    #similarity_matrix = cosine_similarity_matrix(df)
+    #print(type(similarity_matrix), similarity_matrix.shape)
+    #print(sorted(similarity_matrix[0])[0:10])
+    similarity_df = cosine_similarity_df(df)
+    similarity_df.to_csv(os.path.join(EXPORTS_DIRPATH, "tfidf_cosine_similarities.csv"))
+
+    first_doc = similarity_df.iloc[0]
+    print("FIRST DOC")
+    print(first_doc)
+    similar_docs = similarity_df.loc[:, ~similarity_df.columns.isin(["txt.filename", "txt.contents"])].iloc[0]
+    most_similar_docs = similar_docs.sort_values(ascending=False)[0:10]
+    print("SIMILAR DOCS")
+    print(most_similar_docs)
+    #breakpoint()
+
+    print("---------------------")
+    print("DOCUMENT SIMILARITY (KNN)")
+
+    model = NearestNeighbors(n_neighbors=5, algorithm="ball_tree") # algorithm="kd_tree", etc.
+    print("MODEL", model)
+    dtm = df.loc[:, ~df.columns.isin(["txt.filename", "txt.contents"])]
+    model.fit(dtm)
+
+    results = model.kneighbors([dtm.iloc[0]])
+    print("RESULTS", results)
+    print("DISTANCES", results[0])
+    print("DOCUMENTS", results[1])
+
+    for doc_id in results[1][0]:
+        print("-----")
+        print("DOC", doc_id)
+        print(df.iloc[doc_id]["txt.contents"][0:200])
