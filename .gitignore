@@ -6,3 +6,8 @@ __pycache__/
 .pytest_cache
 
 data/*.csv
+data/*.zip
+data/bbc_docs/*.txt
+data/bbc_docs/*.csv
+
+data/exports/*.csv

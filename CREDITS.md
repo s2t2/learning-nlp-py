@@ -17,6 +17,7 @@
   + [Sentiment Analysis with RNN, by Susan](https://towardsdatascience.com/a-beginners-guide-on-sentiment-analysis-with-rnn-9e100627c02e) | [source](https://github.com/susanli2016/NLP-with-Python/blob/master/Sentiment%20Analysis%20with%20RNN.ipynb)
   + [Twitter Sentiment Analysis, by Prateek](https://www.analyticsvidhya.com/blog/2018/07/hands-on-sentiment-analysis-dataset-python/)
   + [Sense2Vec](https://explosion.ai/blog/sense2vec-with-spacy)
+  + [Scikit Learn Vectorizers](https://towardsdatascience.com/hacking-scikit-learns-vectorizers-9ef26a7170af)
 
 ## Datasets
 
@@ -29,20 +30,28 @@
   + [Figure Eight Datasets](https://www.figure-eight.com/data-for-everyone/)
   + [NLTK Datasets](https://github.com/nltk/nltk/wiki/Sentiment-Analysis#datasets)
   + [UIC Datasets](https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html#datasets)
+  + [BBC Dataset](http://mlg.ucd.ie/datasets/bbc.html)
 
 ## Pandas
 
   + [`Series.str.count()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.str.count.html)
   + [`Series.value_counts()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html)
   + [Reorder dataframe columns](https://stackoverflow.com/a/39237712/670433)
+  + [Merging dataframes](https://chrisalbon.com/python/data_wrangling/pandas_join_merge_dataframe/)
+  + [Merging, joining, concatenating dataframes](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
+  + [DataFrame `iloc` vs `loc`](https://stackoverflow.com/questions/31593201/how-are-iloc-ix-and-loc-different)
+  + [DataFrame select multiple columns](https://stackoverflow.com/questions/11285613/selecting-multiple-columns-in-a-pandas-dataframe)
+  + [DataFrame dropping columns](https://stackoverflow.com/questions/20230326/retrieve-dataframe-of-all-but-one-specified-column)
 
 ## NLTK
 
   + [Frequency Distributions](https://www.nltk.org/api/nltk.html?highlight=freqdist)
+  + [Frequency Distributions example](https://stackoverflow.com/a/18119400/670433)
 
 ## Scikit-Learn
 
   + [`CountVectorizer`](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html)
+  + [`CountVectorizer` vocab example](https://stackoverflow.com/questions/22920801/can-i-use-countvectorizer-in-scikit-learn-to-count-frequency-of-documents-that-w)
 
 ## Pytest
 

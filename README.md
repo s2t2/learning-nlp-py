@@ -16,12 +16,16 @@ conda activate learning-nlp-env
 pip install -r requirements.txt # (first time only)
 ```
 
-Download the "amazon_reviews.csv" file and move it into the "data" directory of this repository.
+Data downloads:
+
+  + Mod 1: Download the "amazon_reviews.csv" file and move it into the "data" directory of this repository.
+  + Mod 2: Download the "bbc_docs" directory of text files, and move it into the "data" directory of this repository.
 
 Download the spacy language model:
 
 ```sh
 python -m spacy download en_core_web_md
+python -m spacy download en_core_web_lg
 ```
 
 Download NLTK data, like stopwords:
