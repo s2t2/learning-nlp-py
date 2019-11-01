@@ -20,7 +20,8 @@
   + [Scikit Learn Vectorizers, TowardsDataScience](https://towardsdatascience.com/hacking-scikit-learns-vectorizers-9ef26a7170af)
   + [Natural Language Processing With spaCy in Python, RealPython](https://realpython.com/natural-language-processing-spacy-python/#what-are-nlp-and-spacy)
   + [Bag Of Words, TowardsDataScience](https://towardsdatascience.com/3-basic-approaches-in-bag-of-words-which-are-better-than-word-embeddings-c2cbc7398016)
-
+  + [NLP Journey, by makcedward](https://github.com/makcedward/nlp)
+  +
 ## Datasets
 
   + [IMDB, direct from Stanford](http://ai.stanford.edu/~amaas/data/sentiment/)
@@ -54,6 +55,8 @@
 
   + [`CountVectorizer`](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html)
   + [`CountVectorizer` vocab example](https://stackoverflow.com/questions/22920801/can-i-use-countvectorizer-in-scikit-learn-to-count-frequency-of-documents-that-w)
+  + [`datasets.fetch_20newsgroups`](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_20newsgroups.html)
+  + [`datasets.fetch_20newsgroups data dictionary, including list of categories`](http://qwone.com/~jason/20Newsgroups/)
 
 ## Pytest
 
