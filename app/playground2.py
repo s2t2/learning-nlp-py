@@ -59,3 +59,23 @@ if __name__ == "__main__":
     print(documents[0])
     print(documents[332])
     print(documents[36])
+
+    # GOAL: identify which documents / articles are most similar to the first
+
+    dtm = pd.DataFrame(matrix.toarray())
+
+    model = NearestNeighbors(n_neighbors=5, algorithm="ball_tree") # algorithm="kd_tree", etc.
+    print("MODEL", model)
+
+    model.fit(dtm)
+
+    results = model.kneighbors([dtm.iloc[0]])
+
+    print("RESULTS", results)
+    print("DISTANCES", results[0])
+    print("DOCUMENTS", results[1])
+
+    for doc_id in results[1][0]:
+        print("-----")
+        print("DOC", doc_id)
+        print(documents[doc_id][0:200])
