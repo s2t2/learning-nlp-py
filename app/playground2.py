@@ -3,7 +3,7 @@
 import os
 
 import pandas as pd
-from sklearn.feature_extraction.text import CountVectorizer #, TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
 DATA_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "data")
 BBC_DOCS_DIRPATH = os.path.join(DATA_DIRPATH, "bbc_docs")
@@ -31,7 +31,16 @@ if __name__ == "__main__":
     cv = CountVectorizer()
     #documents = ["doc 1 contents", "doc 2 contents", "doc 3 contents"]
     matrix = cv.fit_transform(documents) #> <class 'scipy.sparse.csr.csr_matrix'>
-    #print("FEATURES")
+    print("FEATURES", len(cv.get_feature_names()))
+    #print(cv.get_feature_names())
+    print("MATRIX")
+    print(matrix.toarray())
+    print(matrix.toarray()[0].tolist())
+
+    # GOAL: construct frequency matrix (TF-IDF)
+    tv = TfidfVectorizer()
+    matrix = tv.fit_transform(documents) #> <class 'scipy.sparse.csr.csr_matrix'>
+    print("FEATURES", len(tv.get_feature_names()))
     #print(cv.get_feature_names())
     print("MATRIX")
     print(matrix.toarray())
