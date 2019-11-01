@@ -2,7 +2,7 @@
 import re
 import string
 
-from app.parser import ALPHANUMERIC_PATTERN
+from app.tokenizer import ALPHANUMERIC_PATTERN
 
 from conftest import MY_PREAMBLE, MY_MESSAGE
 

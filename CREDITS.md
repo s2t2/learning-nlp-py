@@ -17,7 +17,9 @@
   + [Sentiment Analysis with RNN, by Susan](https://towardsdatascience.com/a-beginners-guide-on-sentiment-analysis-with-rnn-9e100627c02e) | [source](https://github.com/susanli2016/NLP-with-Python/blob/master/Sentiment%20Analysis%20with%20RNN.ipynb)
   + [Twitter Sentiment Analysis, by Prateek](https://www.analyticsvidhya.com/blog/2018/07/hands-on-sentiment-analysis-dataset-python/)
   + [Sense2Vec](https://explosion.ai/blog/sense2vec-with-spacy)
-  + [Scikit Learn Vectorizers](https://towardsdatascience.com/hacking-scikit-learns-vectorizers-9ef26a7170af)
+  + [Scikit Learn Vectorizers, TowardsDataScience](https://towardsdatascience.com/hacking-scikit-learns-vectorizers-9ef26a7170af)
+  + [Natural Language Processing With spaCy in Python, RealPython](https://realpython.com/natural-language-processing-spacy-python/#what-are-nlp-and-spacy)
+  + [Bag Of Words, TowardsDataScience](https://towardsdatascience.com/3-basic-approaches-in-bag-of-words-which-are-better-than-word-embeddings-c2cbc7398016)
 
 ## Datasets
 

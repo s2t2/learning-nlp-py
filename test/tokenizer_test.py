@@ -1,6 +1,6 @@
 from pandas import DataFrame
 
-from app.parser import tokenize, tokenize_v2, tokenize_v22, tokenize_v3, tokenize_v4, tokenize_v5, summarize
+from app.tokenizer import tokenize, tokenize_v2, tokenize_v22, tokenize_v3, tokenize_v4, tokenize_v5, summarize
 from conftest import MY_PREAMBLE, MY_MESSAGE, TOKEN_SETS, DOCUMENTS
 
 def test_tokenize():
