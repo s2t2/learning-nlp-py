@@ -73,7 +73,7 @@ def tfidf_vectorized_dataframe(texts_df, dense=False):
 #    similarity_matrix = cosine_similarity(features_df)
 #    return similarity_matrix # pd.DataFrame(similarity_matrix)
 
-def cosine_similarity_df(vectorized_df):
+def cosine_similarity_dataframe(vectorized_df):
     """
     Param: vectorized_df (pd.DataFrame) a dataframe with columns "txt.filename" and "txt.contents",
             ... and also a column for each feature (feature matrix)
@@ -131,7 +131,7 @@ if __name__ == "__main__":
     #similarity_matrix = cosine_similarity_matrix(df)
     #print(type(similarity_matrix), similarity_matrix.shape)
     #print(sorted(similarity_matrix[0])[0:10])
-    similarity_df = cosine_similarity_df(df)
+    similarity_df = cosine_similarity_dataframe(df)
     similarity_df.to_csv(os.path.join(EXPORTS_DIRPATH, "tfidf_cosine_similarities.csv"))
 
     first_doc = similarity_df.iloc[0]
