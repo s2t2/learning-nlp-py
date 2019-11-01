@@ -5,6 +5,9 @@ import os
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.neighbors import NearestNeighbors
+
 DATA_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "data")
 BBC_DOCS_DIRPATH = os.path.join(DATA_DIRPATH, "bbc_docs")
 
@@ -46,4 +49,13 @@ if __name__ == "__main__":
     print(matrix.toarray())
     print(matrix.toarray()[0].tolist())
 
-    breakpoint()
+    # GOAL: identify which documents / articles are most similar to the first
+
+    similarity_matrix = cosine_similarity(matrix.toarray())
+    similarity_df = pd.DataFrame(similarity_matrix)
+    first_doc = similarity_df.iloc[0]
+    print(first_doc)
+    similar_docs = first_doc.sort_values(ascending=False)[0:10]
+    print(documents[0])
+    print(documents[332])
+    print(documents[36])
