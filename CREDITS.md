@@ -57,6 +57,8 @@
   + [`CountVectorizer` vocab example](https://stackoverflow.com/questions/22920801/can-i-use-countvectorizer-in-scikit-learn-to-count-frequency-of-documents-that-w)
   + [`datasets.fetch_20newsgroups`](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_20newsgroups.html)
   + [`datasets.fetch_20newsgroups data dictionary, including list of categories`](http://qwone.com/~jason/20Newsgroups/)
+  + [`model_selection.GridSearchCV`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html)
+  + [Grid Search, explained. Tuning the hyper-parameters of an estimator.](https://scikit-learn.org/stable/modules/grid_search.html#exhaustive-grid-search)
 
 ## Pytest
 
