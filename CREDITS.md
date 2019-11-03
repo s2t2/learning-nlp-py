@@ -62,6 +62,10 @@
   + [`model_selection.GridSearchCV`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html)
   + [Grid Search, explained. Tuning the hyper-parameters of an estimator.](https://scikit-learn.org/stable/modules/grid_search.html#exhaustive-grid-search)
 
+Models:
+
+  + [`LogisticRegression.fit()`](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.fit)
+
 ## Pytest
 
   + [Pytest Fixtures](https://docs.pytest.org/en/latest/fixture.html)
