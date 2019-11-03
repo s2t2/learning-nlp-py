@@ -11,7 +11,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 
-from app.tokenizer import REVIEWS_CSV_FILEPATH, tokenize, tokenize_v4, tokenize_v5
+from app.tokenizer import REVIEWS_CSV_FILEPATH, tokenize, tokenize_v4
 
 if __name__ == "__main__":
 
@@ -122,9 +122,9 @@ if __name__ == "__main__":
     params_grid = {
         "vect__stop_words": [None, "english"],
         "vect__ngram_range": [(1,1), (1,2)],
-        #"vect__tokenizer": [None, tokenize, tokenize_v5],
-        "vect__min_df": (0.02, 0.05),
-        "vect__max_df": (0.75, 1.0),
+        "vect__tokenizer": [None, tokenize],
+        #"vect__min_df": (0.02, 0.05),
+        #"vect__max_df": (0.75, 1.0),
         #"vect__max_features": (500, 1000),
         #"clf__n_estimators": (5, 10),
         #"clf__max_depth": (15, 20)

@@ -26,7 +26,7 @@ def tokenize(doc):
     Params: doc (str) the document to tokenize
     Returns: a list of tokens
     """
-    print("TOKENIZING...")
+    #print("TOKENIZING...")
     doc = doc.lower() # normalize case
     doc = re.sub(ALPHANUMERIC_PATTERN, "", doc) # keep only alphanumeric characters
     tokens = doc.split()
@@ -95,7 +95,7 @@ def tokenize_v5(my_docs, my_nlp=NLP, batch_size=200):
         my_nlp (spacy.lang.en.English) one of spacy's natural language models
     Returns: a token set (list of token lists)
     """
-    print("TOKENIZING (v5)...")
+    #print("TOKENIZING (v5)...")
     tokenizer = Tokenizer(my_nlp.vocab)
     token_sets = []
     for doc in tokenizer.pipe(my_docs, batch_size=batch_size):
