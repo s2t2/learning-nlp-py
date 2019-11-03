@@ -64,7 +64,9 @@
 
 Models:
 
-  + [`LogisticRegression.fit()`](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.fit)
+  + [`LogisticRegression`](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)
+  + [`MultinomialNB`](https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html)
+  + [`RandomForestClassifier`](https://github.com/LambdaSchool/DS-Material/blob/master/unit4-machine-learning/sprint1-natural-language-processing/module3-Document-Classification/LS_DS_423_Document_Classification.ipynb)
 
 ## Pytest
 
