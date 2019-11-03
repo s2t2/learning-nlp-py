@@ -65,6 +65,7 @@
   + [Error: Iterable over raw text documents expected, string object received](https://stackoverflow.com/questions/49806790/iterable-over-raw-text-documents-expected-string-object-received)
   + [`metrics.classification_report`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html#sklearn.metrics.classification_report)
   + [Grid Search, multiple classifiers](https://stackoverflow.com/questions/50285973/pipeline-multiple-classifiers?noredirect=1)
+  + [Grid search verbosity](https://stackoverflow.com/a/24144654/670433)
 
 Models:
 

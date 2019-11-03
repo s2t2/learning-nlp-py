@@ -26,6 +26,7 @@ def tokenize(doc):
     Params: doc (str) the document to tokenize
     Returns: a list of tokens
     """
+    print("TOKENIZING...")
     doc = doc.lower() # normalize case
     doc = re.sub(ALPHANUMERIC_PATTERN, "", doc) # keep only alphanumeric characters
     tokens = doc.split()

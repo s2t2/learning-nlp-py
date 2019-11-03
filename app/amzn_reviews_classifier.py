@@ -117,19 +117,20 @@ if __name__ == "__main__":
 
     params_grid = {
         "vect__stop_words": [None, "english"],
-        "vect__ngram_range": [(1,1), (1,2), (1,3)],
-        "vect__tokenizer": [None, tokenize, tokenize_v4, tokenize_v5],
+        "vect__ngram_range": [(1,1), (1,2)],
+        #"vect__tokenizer": [None, tokenize, tokenize_v5],
         #"vect__min_df": (0.02, 0.05),
         #"vect__max_df": (0.75, 1.0),
         #"vect__max_features": (500, 1000),
-        "clf__n_estimators": (5, 10),
-        "clf__max_depth": (15, 20)
+        #"clf__n_estimators": (5, 10),
+        #"clf__max_depth": (15, 20)
     }
 
     # GridSearchCV exhaustively generates candidates from a grid of parameter values
-    gs = GridSearchCV(estimator=pipeline, param_grid=params_grid, cv=5, n_jobs=-1, verbose=1)
-
+    gs = GridSearchCV(estimator=pipeline, param_grid=params_grid, cv=5, n_jobs=-1, verbose=10, return_train_score=True)
+    print("FITTING...")
     gs.fit(xtrain, ytrain)
+    print("FITTED!")
     print("BEST SCORE:", gs.best_score_) #> 0.828546216633576
     print("BEST PARAMS:", gs.best_params_) #> {'vect__stop_words': None}
     # pprint(gs.cv_results_)
