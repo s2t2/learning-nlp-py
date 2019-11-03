@@ -27,7 +27,7 @@ def parse_text_files(dirpath):
             texts.append({"txt.filename": txt_filename, "txt.contents": txt_file.read()}) # using "txt." prefixes here because later when this df is merged with the features df, if any of the feature column names are "text" for example, it will change the column names to "text_x" vs "text_y", so just namespace and lessen the chance of that happening...
     return texts
 
-def text_files_dataframe(dirpath):
+def text_files_dataframe(dirpath=BBC_DOCS_DIRPATH):
     """
     Parses the contents of all text files in a given directory and stores them in a dataframe for further use.
     Param: dirpath (str): path to a directory of .txt files
@@ -62,17 +62,6 @@ def tfidf_vectorized_dataframe(texts_df, dense=False):
     features_df = pd.DataFrame(data=data, index=texts_df["txt.filename"], columns=feature_names)
     return pd.merge(texts_df, features_df, on="txt.filename")
 
-#def cosine_similarity_matrix(vectorized_df):
-#    """
-#    Param: vectorized_df (pd.DataFrame) a dataframe with columns "txt.filename" and "txt.contents",
-#            ... and also a column for each feature (feature matrix)
-#    """
-#    features_df = vectorized_df
-#    del features_df["txt.filename"]
-#    del features_df["txt.contents"]
-#    similarity_matrix = cosine_similarity(features_df)
-#    return similarity_matrix # pd.DataFrame(similarity_matrix)
-
 def cosine_similarity_dataframe(vectorized_df):
     """
     Param: vectorized_df (pd.DataFrame) a dataframe with columns "txt.filename" and "txt.contents",
@@ -80,9 +69,7 @@ def cosine_similarity_dataframe(vectorized_df):
     """
     docs_df = vectorized_df[["txt.filename", "txt.contents"]]
 
-    #features_df = vectorized_df
-    #del features_df["txt.filename"]
-    #del features_df["txt.contents"]
+    # filters out the specified columns without mutating the original structure
     features_df = vectorized_df.loc[:, ~vectorized_df.columns.isin(["txt.filename", "txt.contents"])]
 
     similarity_matrix = cosine_similarity(features_df)
@@ -94,7 +81,7 @@ def cosine_similarity_dataframe(vectorized_df):
 
 if __name__ == "__main__":
 
-    texts_df = text_files_dataframe(BBC_DOCS_DIRPATH)
+    texts_df = text_files_dataframe()
     print("---------------------")
     print("TEXTS DATAFRAME")
     print(texts_df.shape)
