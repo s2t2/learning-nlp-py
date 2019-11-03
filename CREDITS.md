@@ -64,6 +64,7 @@
   + [Parameter estimation using grid search with cross-validation](https://scikit-learn.org/stable/auto_examples/model_selection/plot_grid_search_digits.html)
   + [Error: Iterable over raw text documents expected, string object received](https://stackoverflow.com/questions/49806790/iterable-over-raw-text-documents-expected-string-object-received)
   + [`metrics.classification_report`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html#sklearn.metrics.classification_report)
+  + [Grid Search, multiple classifiers](https://stackoverflow.com/questions/50285973/pipeline-multiple-classifiers?noredirect=1)
 
 Models:
 

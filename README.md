@@ -55,6 +55,7 @@ Run some example code:
 python -m app.tokenizer
 python -m app.vectorizer
 python -m app.word_distances
+python -m app.amzn_reviews_classifier -W
 ```
 
 Start working from scratch in your own clean space:
