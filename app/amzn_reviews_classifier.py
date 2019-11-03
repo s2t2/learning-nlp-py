@@ -95,9 +95,9 @@ if __name__ == "__main__":
     print("--------------------------")
 
     #reset these...
-    cv = CountVectorizer()
-    #tv = TfidfVectorizer()
-    transformer = TfidfTransformer()
+    #cv = CountVectorizer()
+    #transformer = TfidfTransformer()
+    tv = TfidfVectorizer()
 
     # reset these...
     lr = LogisticRegression(random_state=42)
@@ -113,20 +113,21 @@ if __name__ == "__main__":
     #]) #> need to be unique hmm...
 
     pipeline = Pipeline([
-        ('vect', cv),
-        ('tfidf', transformer),
+        #('vect', cv),
+        #('tfidf', transformer),
+        ('vect', tv),
         ('clf', rf)
     ])
 
     params_grid = {
-        #"vect__stop_words": [None, "english"],
-        "vect__ngram_range": [(1,1), (1,2), (1,3), (1,4)],
+        "vect__stop_words": [None, "english"],
+        "vect__ngram_range": [(1,1), (1,2)],
         #"vect__tokenizer": [None, tokenize, tokenize_v5],
-        #"vect__min_df": (0.02, 0.05),
-        #"vect__max_df": (0.75, 1.0),
+        "vect__min_df": (0.02, 0.05),
+        "vect__max_df": (0.75, 1.0),
         #"vect__max_features": (500, 1000),
-        "clf__n_estimators": (5, 10),
-        "clf__max_depth": (15, 20)
+        #"clf__n_estimators": (5, 10),
+        #"clf__max_depth": (15, 20)
     }
 
     # GridSearchCV exhaustively generates candidates from a grid of parameter values
