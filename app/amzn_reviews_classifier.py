@@ -2,9 +2,11 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import GridSearchCV
 
 from app.tokenizer import REVIEWS_CSV_FILEPATH
 
@@ -18,27 +20,27 @@ if __name__ == "__main__":
     df = pd.read_csv(REVIEWS_CSV_FILEPATH)
     x = df["reviews.text"] # inputs
     y = df["reviews.rating"] # outputs
-    print("  + DOC LENGTHS:")
-    print(x.str.len().value_counts())
-    print("  + STAR-RATINGS:")
-    #print(y.value_counts())
-    #> 5    19897
-    #> 4     5648
-    #> 3     1206
-    #> 1      965
-    #> 2      616
-    print(y.value_counts(normalize=True).sort_index())
-    #> 1    0.034060
-    #> 2    0.021742
-    #> 3    0.042567
-    #> 4    0.199351
-    #> 5    0.702280
+    #print("  + DOC LENGTHS:")
+    #print(x.str.len().value_counts())
+    #print("  + STAR-RATINGS:")
+    ##print(y.value_counts())
+    ##> 5    19897
+    ##> 4     5648
+    ##> 3     1206
+    ##> 1      965
+    ##> 2      616
+    #print(y.value_counts(normalize=True).sort_index())
+    ##> 1    0.034060
+    ##> 2    0.021742
+    ##> 3    0.042567
+    ##> 4    0.199351
+    ##> 5    0.702280
 
-    print("SPLITTING THE DATASET...")
+    print("SPLITTING...")
     xtrain, xtest, ytrain, ytest = train_test_split(x.values, y.values, test_size=0.2, random_state=812)
-    print(len(xtrain), len(xtest), len(ytrain), len(ytest)) #> 22665 5667 22665 5667
+    #print(len(xtrain), len(xtest), len(ytrain), len(ytest)) #> 22665 5667 22665 5667
 
-    print("VECTORIZING TRAINING DATA...")
+    print("VECTORIZING...")
     tv = TfidfVectorizer()
     tv.fit(xtrain)
     print("  + FEATURES:", len(tv.get_feature_names())) #> 9621
@@ -80,3 +82,47 @@ if __name__ == "__main__":
     atest = accuracy_score(ytest, ptest)
     print("  + ACCY (TRAIN):", atrain) #> 0.9834546657842489
     print("  + ACCY (TEST):", atest) #> 0.8524792659255338
+
+    #
+    # WHAT ABOUT STOPWORDS? TUNING...
+    #
+
+    print("--------------------------")
+    print("CLASSIFIER MODELS")
+    print("--------------------------")
+
+    pipeline = Pipeline([
+        ('vect', tv),
+        ('clf', rf)
+    ])
+
+    params_grid = {
+        "vect__stop_words": [None, "english"],
+        #"vect__min_df": (0.02, 0.05),
+        #"vect__max_df": (0.75, 1.0),
+        #"vect__max_features": (500, 1000),
+        #"clf__n_estimators": (5, 10),
+        #"clf__max_depth": (15, 20)
+    }
+
+    # GridSearchCV exhaustively generates candidates from a grid of parameter values
+    gs = GridSearchCV(estimator=pipeline, param_grid=params_grid, cv=5, n_jobs=-1, verbose=1)
+
+    gs.fit(xtrain, ytrain)
+    print("BEST SCORE:", gs.best_score_) #> 0.828546216633576
+    print("BEST PARAMS:", gs.best_params_) #> {'vect__stop_words': None}
+    # pprint(gs.cv_results_)
+
+    report = classification_report(ytest, gs.predict(xtest))
+    print(report)
+
+    print("EXAMPLE PREDICTIONS...")
+    for i in range(0, 15):
+        review = xtest[i]
+        rating = ytest[i]
+        prediction = gs.predict([review]) # wrap in list to avoid... ValueError: Iterable over raw text documents expected, string object received.
+        print("---------")
+        print(f"CLASSIFYING {rating}-STAR REVIEW AS: {prediction}")
+        print(review)
+
+    #breakpoint()
