@@ -125,7 +125,7 @@ if __name__ == "__main__":
         "vect__tokenizer": [tokenize, tokenize_v4],
         #"vect__min_df": (0.02, 0.05),
         #"vect__max_df": (0.75, 1.0),
-        "vect__max_features": (500, 1000),
+        #"vect__max_features": (500, 1000),
         #"clf__n_estimators": (5, 10),
         #"clf__max_depth": (15, 20)
     }
