@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 from app.tokenizer import REVIEWS_CSV_FILEPATH
 #from app.vectorizer import text_files_dataframe
@@ -32,3 +33,9 @@ if __name__ == "__main__":
 
     xtrain, xtest, ytrain, ytest = train_test_split(x.values, y.values, test_size=0.2, random_state=812)
     print(len(xtrain), len(xtest), len(ytrain), len(ytest)) #> 22665 5667 22665 5667
+
+    tv = TfidfVectorizer()
+    tv.fit(xtrain)
+    print(tv.get_feature_names())
+
+    breakpoint()
