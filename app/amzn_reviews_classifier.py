@@ -39,6 +39,12 @@ if __name__ == "__main__":
     ##> 4    0.199351
     ##> 5    0.702280
 
+    # TODO: balance the dataset on the basis of rating (equal number of ratings in dataset)
+
+    # breakpoint()
+
+
+
     print("SPLITTING...")
     xtrain, xtest, ytrain, ytest = train_test_split(x.values, y.values, test_size=0.2, random_state=812)
     #print(len(xtrain), len(xtest), len(ytrain), len(ytest)) #> 22665 5667 22665 5667
@@ -121,10 +127,10 @@ if __name__ == "__main__":
 
     params_grid = {
         "vect__stop_words": [None], # [None, "english"],
-        "vect__ngram_range": [(1,2)],
-        "vect__tokenizer": [tokenize, tokenize_v4],
-        #"vect__min_df": (0.02, 0.05),
-        #"vect__max_df": (0.75, 1.0),
+        "vect__ngram_range": [(1,2), (1,3)],
+        "vect__tokenizer": [None, tokenize, tokenize_v4],
+        "vect__min_df": (0, 0.15),
+        "vect__max_df": (0.55, 1.0),
         #"vect__max_features": (500, 1000),
         #"clf__n_estimators": (5, 10),
         #"clf__max_depth": (15, 20)
@@ -141,6 +147,14 @@ if __name__ == "__main__":
 
     report = classification_report(ytest, gs.predict(xtest))
     print(report)
+    #> BEST SCORE: 0.8303992940657401
+    #> BEST PARAMS: {'vect__ngram_range': (1, 2), 'vect__stop_words': None, 'vect__tokenizer': <function tokenize at 0x11f01e320>}
+
+    #> BEST SCORE: 0.8297374806971101
+    #> BEST PARAMS: {'vect__max_df': 0.75, 'vect__min_df': 0, 'vect__ngram_range': (1, 3), 'vect__stop_words': None, 'vect__tokenizer': <function tokenize at 0x11f8e0290>}
+
+    #> BEST SCORE: 0.8304875358482241
+    #> BEST PARAMS: {'vect__max_df': 0.55, 'vect__min_df': 0, 'vect__ngram_range': (1, 3), 'vect__stop_words': None, 'vect__tokenizer': <function tokenize at 0x11bbe8290>}
 
     #breakpoint()
 

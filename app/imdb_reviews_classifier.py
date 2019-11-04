@@ -95,8 +95,6 @@ if __name__ == "__main__":
     print("  + ACCY (TRAIN):", atrain) #> 0.9834546657842489
     print("  + ACCY (TEST):", atest) #> 0.8524792659255338
 
-    exit()
-
 
     #
     # WHAT ABOUT STOPWORDS? TUNING...
@@ -112,32 +110,24 @@ if __name__ == "__main__":
     tv = TfidfVectorizer()
 
     # reset these...
-    #lr = LogisticRegression(random_state=42)
+    lr = LogisticRegression(random_state=42)
     #nb = MultinomialNB()
-    rf = RandomForestClassifier()
-
-    #pipeline = Pipeline([
-    #    ('vect', cv),
-    #    ('vect', tv),
-    #    ('clf', lr),
-    #    ('clf', nb),
-    #    ('clf', rf)
-    #]) #> need to be unique hmm...
+    #rf = RandomForestClassifier()
 
     pipeline = Pipeline([
         #('vect', cv),
         #('tfidf', transformer),
         ('vect', tv),
-        ('clf', rf)
+        ('clf', lr)
     ])
 
     params_grid = {
-        "vect__stop_words": [None], # [None, "english"],
-        "vect__ngram_range": [(1,2)],
-        "vect__tokenizer": [tokenize, tokenize_v4],
+        "vect__stop_words": [None, "english"], # [None, "english"],
+        "vect__ngram_range": [(1,1), (1,2)],
+        #"vect__tokenizer": [tokenize],
         #"vect__min_df": (0.02, 0.05),
         #"vect__max_df": (0.75, 1.0),
-        "vect__max_features": (500, 1000),
+        #"vect__max_features": (500, 1000),
         #"clf__n_estimators": (5, 10),
         #"clf__max_depth": (15, 20)
     }
