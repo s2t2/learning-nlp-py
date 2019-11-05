@@ -52,17 +52,26 @@ python
 Run some example code:
 
 ```sh
+# MOD 1:
 python -m app.tokenizer
+
+# MOD 2:
 python -m app.vectorizer
 python -m app.word_distances
+
+# MOD 3:
+python -m app.grid_searcher
 python -m app.amzn_reviews_classifier
+python -m app.imdb_reviews_classifier
+python -m app.whiskey_reviews_classifier
 ```
 
 Start working from scratch in your own clean space:
 
 ```sh
-python -m app.playground
-python -m app.playground2
+python -m app.playground # MOD 1
+python -m app.playground2 # MOD 2
+python -m app.playground3 # MOD 3
 ```
 
 ## Testing

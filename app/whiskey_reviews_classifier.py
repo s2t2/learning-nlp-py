@@ -6,11 +6,13 @@ import os
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 
 WHISKEY_DATA_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "data", "whiskey")
 SUBMISSION_CSV_FILEPATH = os.path.join(WHISKEY_DATA_DIRPATH, "my_submission.csv")
+GS_SUBMISSION_CSV_FILEPATH = os.path.join(WHISKEY_DATA_DIRPATH, "my_gs_submission.csv")
 
 def generate_model_submissions(vectorizer, model, submission_csv_filepath=SUBMISSION_CSV_FILEPATH):
     """
@@ -34,7 +36,7 @@ def generate_model_submissions(vectorizer, model, submission_csv_filepath=SUBMIS
     submission_df.to_csv(submission_csv_filepath, index=False)
     return submission_df
 
-def generate_grid_search_submissions(grid_search, submission_csv_filepath=SUBMISSION_CSV_FILEPATH):
+def generate_grid_search_submissions(grid_search, submission_csv_filepath=GS_SUBMISSION_CSV_FILEPATH):
     """
     Uses a given pre-trained grid search to find the best params,
     then use the best version of the model to classify values in the testing dataset,
@@ -76,20 +78,20 @@ if __name__ == "__main__":
     # SINGLE MODEL APPROACH
     #
 
-    #tv = TfidfVectorizer()
-    #tv.fit(xtrain)
-    #matrix = tv.transform(xtrain)
-#
-    #rf = RandomForestClassifier()
-    #rf.fit(matrix.todense(), ytrain)
-    #predictions = rf.predict(matrix)
-#
-    #accy = accuracy_score(ytrain, predictions)
-    #print("TRAINING ACCY:", accy)
-#
-    #submission_df = generate_model_submissions(tv, rf)
-    #print("SUBMISSION FILE...")
-    #print(submission_df.head())
+    tv = TfidfVectorizer()
+    tv.fit(xtrain)
+    matrix = tv.transform(xtrain)
+
+    rf = RandomForestClassifier()
+    rf.fit(matrix.todense(), ytrain)
+    predictions = rf.predict(matrix)
+
+    accy = accuracy_score(ytrain, predictions)
+    print("TRAINING ACCY:", accy)
+
+    submission_df = generate_model_submissions(tv, rf)
+    print("SUBMISSION FILE...")
+    print(submission_df.head())
 
     #
     # GRID SEARCH APPROACH
