@@ -60,6 +60,7 @@
   + [`datasets.fetch_20newsgroups`](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_20newsgroups.html)
   + [`datasets.fetch_20newsgroups data dictionary, including list of categories`](http://qwone.com/~jason/20Newsgroups/)
   + [`model_selection.GridSearchCV`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html)
+  + [`model_selection.RandomizedSearchCV`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html)
   + [Grid Search, explained. Tuning the hyper-parameters of an estimator](https://scikit-learn.org/stable/modules/grid_search.html#exhaustive-grid-search)
   + [Parameter estimation using grid search with cross-validation](https://scikit-learn.org/stable/auto_examples/model_selection/plot_grid_search_digits.html)
   + [Error: Iterable over raw text documents expected, string object received](https://stackoverflow.com/questions/49806790/iterable-over-raw-text-documents-expected-string-object-received)
@@ -71,7 +72,7 @@ Models:
 
   + [`LogisticRegression`](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)
   + [`MultinomialNB`](https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html)
-  + [`RandomForestClassifier`](https://github.com/LambdaSchool/DS-Material/blob/master/unit4-machine-learning/sprint1-natural-language-processing/module3-Document-Classification/LS_DS_423_Document_Classification.ipynb)
+  + [`RandomForestClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
 
 ## Pytest
 
