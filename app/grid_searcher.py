@@ -96,14 +96,10 @@ if __name__ == "__main__":
     grid_search.fit(training_data.data, training_data.target)
     print(grid_search.best_score_) #> 0.8689538807649044
 
-    breakpoint()
-
     # prediction / classification
-
-    #results = grid_search.predict(["Send me lots of money now", "you won the lottery in Nigeria"])
-    #print(results) #> [1,1]
-
-    #example_text = "Astronauts pass the moons of Jupiter in their space shuttle"
-    #results = grid_search.predict([example_text, example_text, example_text]) #> [2,2,2]
-
-    # what are these results about?
+    xtest = [
+        "Astronauts pass the moons of Jupiter in their space shuttle",
+        "Hey I'm talking about basketball here"
+    ]
+    results = grid_search.predict(xtest)
+    print(results) #> [2, 0]
