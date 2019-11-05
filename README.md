@@ -30,6 +30,7 @@ Download the data:
 
   + Mod 1: Download the "amazon_reviews.csv" file and move it into the "data" directory of this repository.
   + Mod 2: Download the "bbc_docs" directory of text files, and move it into the "data" directory of this repository.
+  + Mod 3: Download the data from this [Kaggle Competition](https://www.kaggle.com/c/whiskey-201911/data), and move it into the "data/whiskey" directory of this repository. (FYI: ALREADY INCLUDED IN THIS REPO)
 
 Download the spacy language models:
 
@@ -46,6 +47,7 @@ python
 > import nltk
 > nltk.download()
 > nltk.download("stopwords")
+> nltk.download("movie_reviews")
 ```
 ## Usage
 
