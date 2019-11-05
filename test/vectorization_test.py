@@ -235,3 +235,9 @@ def test_tfidf_vectorizer_custom(nlp):
     assert matrix.todense().shape == (3, 16)
     assert matrix.toarray()[0].shape == (16,)
     assert matrix.todense()[0].shape == (1, 16)
+
+def test_spacy_vectors(nlp):
+    doc = nlp("Two bananas in pyjamas")
+    matrix = doc.vector
+    assert isinstance(matrix, np.ndarray)
+    assert matrix.shape == (300,)
