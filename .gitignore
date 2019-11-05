@@ -9,5 +9,9 @@ data/*.csv
 data/*.zip
 data/bbc_docs/*.txt
 data/bbc_docs/*.csv
+#data/whiskey/*.csv
+data/whiskey/derived.csv
+data/whiskey/my_submission.csv
+data/whiskey/my_gs_submission.csv
 
 data/exports/*.csv

@@ -30,6 +30,7 @@ Download the data:
 
   + Mod 1: Download the "amazon_reviews.csv" file and move it into the "data" directory of this repository.
   + Mod 2: Download the "bbc_docs" directory of text files, and move it into the "data" directory of this repository.
+  + Mod 3: Download the data from this [Kaggle Competition](https://www.kaggle.com/c/whiskey-201911/data), and move it into the "data/whiskey" directory of this repository. (FYI: ALREADY INCLUDED IN THIS REPO)
 
 Download the spacy language models:
 
@@ -46,22 +47,33 @@ python
 > import nltk
 > nltk.download()
 > nltk.download("stopwords")
+> nltk.download("movie_reviews")
 ```
 ## Usage
 
 Run some example code:
 
 ```sh
+# MOD 1:
 python -m app.tokenizer
+
+# MOD 2:
 python -m app.vectorizer
 python -m app.word_distances
+
+# MOD 3:
+python -m app.grid_searcher
+python -m app.amzn_reviews_classifier
+python -m app.imdb_reviews_classifier
+python -m app.whiskey_reviews_classifier
 ```
 
 Start working from scratch in your own clean space:
 
 ```sh
-python -m app.playground
-python -m app.playground2
+python -m app.playground # MOD 1
+python -m app.playground2 # MOD 2
+python -m app.playground3 # MOD 3
 ```
 
 ## Testing

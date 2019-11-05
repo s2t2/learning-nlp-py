@@ -20,7 +20,8 @@
   + [Scikit Learn Vectorizers, TowardsDataScience](https://towardsdatascience.com/hacking-scikit-learns-vectorizers-9ef26a7170af)
   + [Natural Language Processing With spaCy in Python, RealPython](https://realpython.com/natural-language-processing-spacy-python/#what-are-nlp-and-spacy)
   + [Bag Of Words, TowardsDataScience](https://towardsdatascience.com/3-basic-approaches-in-bag-of-words-which-are-better-than-word-embeddings-c2cbc7398016)
-
+  + [NLP Journey, by makcedward](https://github.com/makcedward/nlp)
+  +
 ## Datasets
 
   + [IMDB, direct from Stanford](http://ai.stanford.edu/~amaas/data/sentiment/)
@@ -38,12 +39,14 @@
 
   + [`Series.str.count()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.str.count.html)
   + [`Series.value_counts()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html)
+  + [`Series.sort_index()`](https://pandas.pydata.org/pandas-docs/version/0.17.0/generated/pandas.Series.sort_index.html)
   + [Reorder dataframe columns](https://stackoverflow.com/a/39237712/670433)
   + [Merging dataframes](https://chrisalbon.com/python/data_wrangling/pandas_join_merge_dataframe/)
   + [Merging, joining, concatenating dataframes](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html)
   + [DataFrame `iloc` vs `loc`](https://stackoverflow.com/questions/31593201/how-are-iloc-ix-and-loc-different)
   + [DataFrame select multiple columns](https://stackoverflow.com/questions/11285613/selecting-multiple-columns-in-a-pandas-dataframe)
   + [DataFrame dropping columns](https://stackoverflow.com/questions/20230326/retrieve-dataframe-of-all-but-one-specified-column)
+  +
 
 ## NLTK
 
@@ -54,6 +57,22 @@
 
   + [`CountVectorizer`](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html)
   + [`CountVectorizer` vocab example](https://stackoverflow.com/questions/22920801/can-i-use-countvectorizer-in-scikit-learn-to-count-frequency-of-documents-that-w)
+  + [`datasets.fetch_20newsgroups`](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_20newsgroups.html)
+  + [`datasets.fetch_20newsgroups data dictionary, including list of categories`](http://qwone.com/~jason/20Newsgroups/)
+  + [`model_selection.GridSearchCV`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html)
+  + [`model_selection.RandomizedSearchCV`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html)
+  + [Grid Search, explained. Tuning the hyper-parameters of an estimator](https://scikit-learn.org/stable/modules/grid_search.html#exhaustive-grid-search)
+  + [Parameter estimation using grid search with cross-validation](https://scikit-learn.org/stable/auto_examples/model_selection/plot_grid_search_digits.html)
+  + [Error: Iterable over raw text documents expected, string object received](https://stackoverflow.com/questions/49806790/iterable-over-raw-text-documents-expected-string-object-received)
+  + [`metrics.classification_report`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html#sklearn.metrics.classification_report)
+  + [Grid Search, multiple classifiers](https://stackoverflow.com/questions/50285973/pipeline-multiple-classifiers?noredirect=1)
+  + [Grid search verbosity](https://stackoverflow.com/a/24144654/670433)
+
+Models:
+
+  + [`LogisticRegression`](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)
+  + [`MultinomialNB`](https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html)
+  + [`RandomForestClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
 
 ## Pytest
 

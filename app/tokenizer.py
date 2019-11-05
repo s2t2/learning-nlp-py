@@ -19,11 +19,14 @@ REVIEWS_CSV_FILEPATH = os.path.join(DATA_DIRPATH, "amazon_reviews.csv")
 
 ALPHANUMERIC_PATTERN = r'[^a-zA-Z ^0-9]' # same as "[^a-zA-Z ^0-9]"
 
+NLP = spacy.load("en_core_web_md")
+
 def tokenize(doc):
     """
     Params: doc (str) the document to tokenize
     Returns: a list of tokens
     """
+    #print("TOKENIZING...")
     doc = doc.lower() # normalize case
     doc = re.sub(ALPHANUMERIC_PATTERN, "", doc) # keep only alphanumeric characters
     tokens = doc.split()
@@ -57,7 +60,7 @@ def tokenize_v22(doc):
     tokens = [ps.stem(token) for token in tokens if not token in stop_words]
     return tokens
 
-def tokenize_v3(my_doc, my_nlp):
+def tokenize_v3(my_doc, my_nlp=NLP):
     """
     Params:
         my_doc (str) the document to tokenize
@@ -73,7 +76,7 @@ def tokenize_v3(my_doc, my_nlp):
     # todo: consider stemming / lemmatizing!
     return tokens
 
-def tokenize_v4(my_doc, my_nlp):
+def tokenize_v4(my_doc, my_nlp=NLP):
     """
     Params:
         my_doc (str) the document to tokenize
@@ -84,7 +87,7 @@ def tokenize_v4(my_doc, my_nlp):
     tokens = [token.lemma_.lower() for token in doc if token.is_stop == False and token.is_punct == False and token.is_space == False]
     return tokens
 
-def tokenize_v5(my_docs, my_nlp, batch_size=200):
+def tokenize_v5(my_docs, my_nlp=NLP, batch_size=200):
     """
     Uses a tokenizer pipeline for performance gains (JK still very slow).
     Params:
@@ -92,7 +95,7 @@ def tokenize_v5(my_docs, my_nlp, batch_size=200):
         my_nlp (spacy.lang.en.English) one of spacy's natural language models
     Returns: a token set (list of token lists)
     """
-    print("TOKENIZING (v5)...")
+    #print("TOKENIZING (v5)...")
     tokenizer = Tokenizer(my_nlp.vocab)
     token_sets = []
     for doc in tokenizer.pipe(my_docs, batch_size=batch_size):
