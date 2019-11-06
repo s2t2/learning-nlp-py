@@ -21,7 +21,8 @@
   + [Natural Language Processing With spaCy in Python, RealPython](https://realpython.com/natural-language-processing-spacy-python/#what-are-nlp-and-spacy)
   + [Bag Of Words, TowardsDataScience](https://towardsdatascience.com/3-basic-approaches-in-bag-of-words-which-are-better-than-word-embeddings-c2cbc7398016)
   + [NLP Journey, by makcedward](https://github.com/makcedward/nlp)
-  +
+  + [Your Guide to Latent Dirichlet Allocation, by Lettier](https://medium.com/@lettier/how-does-lda-work-ill-explain-using-emoji-108abf40fa7d)
+
 ## Datasets
 
   + [IMDB, direct from Stanford](http://ai.stanford.edu/~amaas/data/sentiment/)
