@@ -75,6 +75,14 @@ Models:
   + [`MultinomialNB`](https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html)
   + [`RandomForestClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
 
+## Gensim
+
+  + [Getting Started](https://radimrehurek.com/gensim/auto_examples/index.html)
+  +
+Dictionaries:
+
+  + [`corpora.Dictionary` tuturial](https://radimrehurek.com/gensim/corpora/dictionary.html)
+  +
 ## Pytest
 
   + [Pytest Fixtures](https://docs.pytest.org/en/latest/fixture.html)
