@@ -20,10 +20,21 @@ def test_lda_model():
     topic_strings = [topic_str for topic_str in response[0][1].split(" + ")]
     assert topic_strings[0] == '0.067*"sleep"'
 
+    #top_topics = lda.top_topics(bags_of_words)
+    #assert top_topics[0][0] == [
+    #    (0.09950739, 'all'), (0.09950739, 'and'), (0.09950739, 'got'), (0.09950739, 'sleep'),
+    #    (0.09950739, 'they'), (0.09950739, 'tired'), (0.09950739, 'to'), (0.09950739, 'until'),
+    #    (0.09950739, 'went'), (0.09950739, 'zzz'), (0.0009852239, 'kings'), (0.0009852239, 'men'),
+    #    (0.0009852239, 'the'), (0.0009852239, 'ate'), (0.0009852239, 'hens')
+    #]
+
+
+
+
 def test_lda_model_tfidf():
     dictionary = Dictionary(TOKEN_SETS)
     bags_of_words = [dictionary.doc2bow(tokens) for tokens in TOKEN_SETS]
-    tfidf = TfidfModel(bags_of_words)
+    tfidf = TfidfModel(bags_of_words, normalize=True)
     tfidf_bags = tfidf[bags_of_words]
     lda = LdaMulticore(corpus=tfidf_bags, id2word=dictionary, random_state=723812, passes=10, workers=4)
     response = lda.print_topics()

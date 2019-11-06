@@ -53,7 +53,7 @@ def test_vectorization_tfidf():
     bags_of_words = [dictionary.doc2bow(token_set) for token_set in TOKEN_SETS]
 
     # it generates a tfidf-vectorized bag of words for a given token set:
-    tm = TfidfModel(bags_of_words)
+    tm = TfidfModel(bags_of_words, normalize=True)
     tc = tm[bags_of_words]
     #print(type(transformed_corpus)) #> gensim.interfaces.TransformedCorpus
     assert list(tc) == [
