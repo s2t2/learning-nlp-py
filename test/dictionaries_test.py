@@ -1,12 +1,8 @@
 
-import os
-
 from gensim.corpora import Dictionary
 
 from app.novels import token_stream
-from conftest import TOKEN_SETS
-
-NOVELS_DIRPATH = os.path.join(os.path.dirname(__file__), "data", "novels")
+from conftest import TOKEN_SETS, NOVELS_DIRPATH
 
 #
 # gensim.corpora.Dictionary
