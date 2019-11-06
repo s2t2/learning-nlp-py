@@ -78,6 +78,11 @@ Models:
 ## Gensim
 
   + [Getting Started](https://radimrehurek.com/gensim/auto_examples/index.html)
+  + [Topics and Transformations](https://radimrehurek.com/gensim/auto_examples/core/run_topics_and_transformations.html#sphx-glr-auto-examples-core-run-topics-and-transformations-py)
+
+TFIDF:
+
+  + [TFIDF](https://radimrehurek.com/gensim/models/tfidfmodel.html)
 
 Dictionaries:
 
