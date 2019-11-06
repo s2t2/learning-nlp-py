@@ -78,11 +78,18 @@ Models:
 ## Gensim
 
   + [Getting Started](https://radimrehurek.com/gensim/auto_examples/index.html)
-  +
+
 Dictionaries:
 
-  + [`corpora.Dictionary` tuturial](https://radimrehurek.com/gensim/corpora/dictionary.html)
-  +
+  + [`corpora.Dictionary` tutorial](https://radimrehurek.com/gensim/corpora/dictionary.html)
+  + [`corpora.Dictionary.filter_extremes()`](https://radimrehurek.com/gensim/corpora/dictionary.html#gensim.corpora.dictionary.Dictionary.filter_extremes)
+
+LDA:
+
+  + [`models.LdaModel`](https://radimrehurek.com/gensim/models/ldamodel.html#gensim.models.ldamodel.LdaModel)
+  + [`models.LdaMulticore`](https://radimrehurek.com/gensim/models/ldamulticore.html)
+
+
 ## Pytest
 
   + [Pytest Fixtures](https://docs.pytest.org/en/latest/fixture.html)
