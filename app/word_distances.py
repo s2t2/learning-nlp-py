@@ -52,6 +52,10 @@ def term_dependencies_viz(text):
     doc = nlp(text)
     displacy.serve(doc, style="dep")
 
+def entities_viz(text):
+    doc = nlp(text)
+    displacy.serve(doc, style="ent")
+
 if __name__ == "__main__":
 
     #text = """
@@ -70,8 +74,8 @@ if __name__ == "__main__":
 
     term_dependencies_viz(text)
 
+    input("Press enter to continue....")
+    entities_viz(text)
 
-    exit()
-
-
+    input("Press enter to continue....")
     show_distances_viz()

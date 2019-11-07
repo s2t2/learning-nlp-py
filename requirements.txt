@@ -13,3 +13,4 @@ gensim
 matplotlib
 squarify
 seaborn
+pyldavis

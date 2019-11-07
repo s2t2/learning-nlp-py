@@ -21,7 +21,11 @@
   + [Natural Language Processing With spaCy in Python, RealPython](https://realpython.com/natural-language-processing-spacy-python/#what-are-nlp-and-spacy)
   + [Bag Of Words, TowardsDataScience](https://towardsdatascience.com/3-basic-approaches-in-bag-of-words-which-are-better-than-word-embeddings-c2cbc7398016)
   + [NLP Journey, by makcedward](https://github.com/makcedward/nlp)
-  +
+  + [Your Guide to Latent Dirichlet Allocation, by Lettier](https://medium.com/@lettier/how-does-lda-work-ill-explain-using-emoji-108abf40fa7d)
+  + [Topic Modeling](https://www.machinelearningplus.com/nlp/topic-modeling-gensim-python/#11createthedictionaryandcorpusneededfortopicmodeling)
+  + [LDA2Vec](https://multithreaded.stitchfix.com/blog/2016/05/27/lda2vec/#topic=38&lambda=1&term=)
+  + [Named Entity Recognition](https://towardsdatascience.com/named-entity-recognition-with-nltk-and-spacy-8c4a7d88e7da)
+
 ## Datasets
 
   + [IMDB, direct from Stanford](http://ai.stanford.edu/~amaas/data/sentiment/)
@@ -73,6 +77,26 @@ Models:
   + [`LogisticRegression`](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)
   + [`MultinomialNB`](https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html)
   + [`RandomForestClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
+
+## Gensim
+
+  + [Getting Started](https://radimrehurek.com/gensim/auto_examples/index.html)
+  + [Topics and Transformations](https://radimrehurek.com/gensim/auto_examples/core/run_topics_and_transformations.html#sphx-glr-auto-examples-core-run-topics-and-transformations-py)
+
+TFIDF:
+
+  + [TFIDF](https://radimrehurek.com/gensim/models/tfidfmodel.html)
+
+Dictionaries:
+
+  + [`corpora.Dictionary` tutorial](https://radimrehurek.com/gensim/corpora/dictionary.html)
+  + [`corpora.Dictionary.filter_extremes()`](https://radimrehurek.com/gensim/corpora/dictionary.html#gensim.corpora.dictionary.Dictionary.filter_extremes)
+
+LDA:
+
+  + [`models.LdaModel`](https://radimrehurek.com/gensim/models/ldamodel.html#gensim.models.ldamodel.LdaModel)
+  + [`models.LdaMulticore`](https://radimrehurek.com/gensim/models/ldamulticore.html)
+
 
 ## Pytest
 

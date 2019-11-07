@@ -1,4 +1,5 @@
 
+import os
 import pytest
 
 MY_PREAMBLE = "Friends, Romans, countrymen, lend me your ears; 911"
@@ -16,6 +17,8 @@ TOKEN_SETS = [doc.split() for doc in DOCUMENTS]
 #    ["ate", "all", "the", "kings", "hens"],
 #    ["until", "they", "all", "got", "tired", "and", "went", "to", "sleep", "zzz"]
 #]
+
+NOVELS_DIRPATH = os.path.join(os.path.dirname(__file__), "test", "data", "novels")
 
 # prevents unnecessary or duplicative language model loading
 # fixture only loaded when a specific test needs it
