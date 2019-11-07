@@ -13,5 +13,9 @@
 # Part 3: Interpret LDA results
 # Part 4: Select the appropriate number of topics
 
+import os
+
+NOVELS_DIRPATH = os.path.join(os.path.dirname(__file__), "..", "data", "novels")
+
 if __name__ == "__main__":
     print("TOPIC MODELING, YO")
